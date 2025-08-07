@@ -35,8 +35,13 @@ document.getElementById('start-btn').addEventListener('click', startQuiz);
 document.getElementById('next-btn').addEventListener('click', nextQuestion);
 
 function startQuiz() {
+    // Hide the start screen and show the quiz screen with animation
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('quiz-screen').style.display = 'block';
+
+    // Add animation to the container
+    document.querySelector('.container').classList.add('animate');
+
     showQuestion();
 }
 
@@ -78,29 +83,4 @@ function nextQuestion() {
 
 function showResult() {
     document.getElementById('quiz-screen').style.display = 'none';
-    document.getElementById('result').style.display = 'block';
-
-    document.getElementById('score').textContent = `Você acertou ${score} de ${questions.length} perguntas.`;
-
-    const feedback = document.getElementById('feedback');
-    if (score === questions.length) {
-        feedback.textContent = 'Parabéns! Você acertou todas as perguntas!';
-        feedback.classList.add('correct');
-        feedback.classList.remove('incorrect');
-    } else if (score >= Math.floor(questions.length / 2)) {
-        feedback.textContent = 'Muito bem! Você acertou algumas perguntas!';
-        feedback.classList.add('correct');
-        feedback.classList.remove('incorrect');
-    } else {
-        feedback.textContent = 'Tente novamente! Você pode melhorar.';
-        feedback.classList.add('incorrect');
-        feedback.classList.remove('correct');
-    }
-}
-
-function resetQuiz() {
-    currentQuestionIndex = 0;
-    score = 0;
-    document.getElementById('result').style.display = 'none';
-    document.getElementById('start-screen').style.display = 'block';
-}
+    document.getElementById('result').style.display = 'block

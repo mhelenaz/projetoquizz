@@ -1,6 +1,6 @@
 /* styles.css */
 
-/* Reset de margin e padding */
+/* Resetando margens e padding */
 * {
     margin: 0;
     padding: 0;
@@ -9,72 +9,115 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     color: white;
+    overflow: hidden;
 }
 
+/* Container centralizado */
 .container {
     background: rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 10px;
+    padding: 40px;
+    border-radius: 15px;
     width: 100%;
     max-width: 600px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     text-align: center;
+    transition: transform 0.5s ease-in-out;
 }
 
-h1, p {
+/* Animação de entrada suave */
+.container.animate {
+    transform: scale(1.05);
+}
+
+h1 {
+    font-size: 2.5em;
     margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    opacity: 0.8;
+}
+
+/* Botão de início */
 button {
-    padding: 12px 25px;
+    padding: 12px 30px;
     background-color: #2575fc;
     border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
+    border-radius: 25px;
+    font-size: 1.1em;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
 }
 
+/* Efeito no botão ao passar o mouse */
 button:hover {
     background-color: #6a11cb;
+    transform: scale(1.1);
 }
 
-/* Tela do quiz */
+/* Quiz */
 #question-container {
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
 #options-container {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 #options-container label {
     display: block;
-    margin: 10px 0;
+    margin: 12px 0;
     font-size: 1.2em;
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
+#options-container label:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateX(5px);
+}
+
+/* Botão de "Próxima Pergunta" */
 #next-btn {
-    width: 100%;
+    padding: 12px 30px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1em;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    outline: none;
 }
 
+/* Tela de resultados */
 .result {
+    font-size: 1.5em;
+    color: white;
     text-align: center;
-    margin-top: 30px;
 }
 
 #feedback {
-    font-size: 1.5em;
-    margin: 20px 0;
+    font-size: 1.3em;
+    margin-top: 20px;
 }
 
 #feedback.correct {
@@ -83,4 +126,23 @@ button:hover {
 
 #feedback.incorrect {
     color: #dc3545;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Transição suave na tela do quiz */
+#quiz-screen {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
