@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interativo</title>
+    <title>Quiz Interativo - Conhecimentos Gerais</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Quiz de Conhecimentos Gerais</h1>
+        <h1>Quiz Interativo</h1>
+        <p>Responda às perguntas e descubra seu resultado!</p>
+        
         <form id="quiz-form">
             <div class="question">
                 <p>1. Qual é a capital do Brasil?</p>
@@ -41,13 +43,63 @@
                     <input type="radio" name="q2" value="D"> D) Tancredo Neves
                 </label>
             </div>
-            
+
+            <div class="question">
+                <p>3. Qual é o maior animal terrestre?</p>
+                <label>
+                    <input type="radio" name="q3" value="A" required> A) Girafa
+                </label>
+                <label>
+                    <input type="radio" name="q3" value="B"> B) Elefante
+                </label>
+                <label>
+                    <input type="radio" name="q3" value="C"> C) Hipopótamo
+                </label>
+                <label>
+                    <input type="radio" name="q3" value="D"> D) Urso
+                </label>
+            </div>
+
+            <div class="question">
+                <p>4. Qual planeta é conhecido como o "planeta vermelho"?</p>
+                <label>
+                    <input type="radio" name="q4" value="A" required> A) Marte
+                </label>
+                <label>
+                    <input type="radio" name="q4" value="B"> B) Vênus
+                </label>
+                <label>
+                    <input type="radio" name="q4" value="C"> C) Júpiter
+                </label>
+                <label>
+                    <input type="radio" name="q4" value="D"> D) Saturno
+                </label>
+            </div>
+
+            <div class="question">
+                <p>5. Qual é a língua mais falada no mundo?</p>
+                <label>
+                    <input type="radio" name="q5" value="A" required> A) Espanhol
+                </label>
+                <label>
+                    <input type="radio" name="q5" value="B"> B) Mandarim
+                </label>
+                <label>
+                    <input type="radio" name="q5" value="C"> C) Inglês
+                </label>
+                <label>
+                    <input type="radio" name="q5" value="D"> D) Árabe
+                </label>
+            </div>
+
             <button type="submit">Finalizar Quiz</button>
         </form>
 
         <div id="result" class="result" style="display: none;">
-            <h2>Resultado:</h2>
+            <h2>Seu Resultado</h2>
             <p id="score"></p>
+            <div id="feedback"></div>
+            <button onclick="resetQuiz()">Tentar Novamente</button>
         </div>
     </div>
 
