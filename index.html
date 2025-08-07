@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interativo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz de Conhecimentos Gerais</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. Qual é a capital do Brasil?</p>
+                <label>
+                    <input type="radio" name="q1" value="A" required> A) Rio de Janeiro
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="B"> B) São Paulo
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="C"> C) Brasília
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="D"> D) Salvador
+                </label>
+            </div>
+            
+            <div class="question">
+                <p>2. Quem foi o primeiro presidente do Brasil?</p>
+                <label>
+                    <input type="radio" name="q2" value="A" required> A) Getúlio Vargas
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="B"> B) Juscelino Kubitschek
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="C"> C) Marechal Deodoro da Fonseca
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="D"> D) Tancredo Neves
+                </label>
+            </div>
+            
+            <button type="submit">Finalizar Quiz</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;">
+            <h2>Resultado:</h2>
+            <p id="score"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
