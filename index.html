@@ -8,92 +8,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>Quiz Interativo</h1>
-        <p>Responda às perguntas e descubra seu resultado!</p>
-        
-        <form id="quiz-form">
-            <div class="question">
-                <p>1. Qual é a capital do Brasil?</p>
-                <label>
-                    <input type="radio" name="q1" value="A" required> A) Rio de Janeiro
-                </label>
-                <label>
-                    <input type="radio" name="q1" value="B"> B) São Paulo
-                </label>
-                <label>
-                    <input type="radio" name="q1" value="C"> C) Brasília
-                </label>
-                <label>
-                    <input type="radio" name="q1" value="D"> D) Salvador
-                </label>
-            </div>
-            
-            <div class="question">
-                <p>2. Quem foi o primeiro presidente do Brasil?</p>
-                <label>
-                    <input type="radio" name="q2" value="A" required> A) Getúlio Vargas
-                </label>
-                <label>
-                    <input type="radio" name="q2" value="B"> B) Juscelino Kubitschek
-                </label>
-                <label>
-                    <input type="radio" name="q2" value="C"> C) Marechal Deodoro da Fonseca
-                </label>
-                <label>
-                    <input type="radio" name="q2" value="D"> D) Tancredo Neves
-                </label>
-            </div>
+        <div id="start-screen">
+            <h1>Bem-vindo ao Quiz!</h1>
+            <p>Responda às perguntas e descubra o quanto você sabe!</p>
+            <button id="start-btn">Começar</button>
+        </div>
 
-            <div class="question">
-                <p>3. Qual é o maior animal terrestre?</p>
-                <label>
-                    <input type="radio" name="q3" value="A" required> A) Girafa
-                </label>
-                <label>
-                    <input type="radio" name="q3" value="B"> B) Elefante
-                </label>
-                <label>
-                    <input type="radio" name="q3" value="C"> C) Hipopótamo
-                </label>
-                <label>
-                    <input type="radio" name="q3" value="D"> D) Urso
-                </label>
+        <div id="quiz-screen" style="display: none;">
+            <div id="question-container">
+                <!-- Pergunta será injetada aqui via JavaScript -->
             </div>
-
-            <div class="question">
-                <p>4. Qual planeta é conhecido como o "planeta vermelho"?</p>
-                <label>
-                    <input type="radio" name="q4" value="A" required> A) Marte
-                </label>
-                <label>
-                    <input type="radio" name="q4" value="B"> B) Vênus
-                </label>
-                <label>
-                    <input type="radio" name="q4" value="C"> C) Júpiter
-                </label>
-                <label>
-                    <input type="radio" name="q4" value="D"> D) Saturno
-                </label>
+            <div id="options-container">
+                <!-- Opções serão injetadas aqui via JavaScript -->
             </div>
-
-            <div class="question">
-                <p>5. Qual é a língua mais falada no mundo?</p>
-                <label>
-                    <input type="radio" name="q5" value="A" required> A) Espanhol
-                </label>
-                <label>
-                    <input type="radio" name="q5" value="B"> B) Mandarim
-                </label>
-                <label>
-                    <input type="radio" name="q5" value="C"> C) Inglês
-                </label>
-                <label>
-                    <input type="radio" name="q5" value="D"> D) Árabe
-                </label>
-            </div>
-
-            <button type="submit">Finalizar Quiz</button>
-        </form>
+            <button id="next-btn" style="display: none;">Próxima Pergunta</button>
+        </div>
 
         <div id="result" class="result" style="display: none;">
             <h2>Seu Resultado</h2>

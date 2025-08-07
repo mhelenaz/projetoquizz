@@ -1,56 +1,106 @@
 // script.js
 
-document.getElementById('quiz-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    let score = 0;
+const questions = [
+    {
+        question: "Qual é a capital do Brasil?",
+        options: ["Rio de Janeiro", "São Paulo", "Brasília", "Salvador"],
+        correctAnswer: "Brasília"
+    },
+    {
+        question: "Quem foi o primeiro presidente do Brasil?",
+        options: ["Getúlio Vargas", "Juscelino Kubitschek", "Marechal Deodoro da Fonseca", "Tancredo Neves"],
+        correctAnswer: "Marechal Deodoro da Fonseca"
+    },
+    {
+        question: "Qual é o maior animal terrestre?",
+        options: ["Girafa", "Elefante", "Hipopótamo", "Urso"],
+        correctAnswer: "Elefante"
+    },
+    {
+        question: "Qual planeta é conhecido como o 'planeta vermelho'?",
+        options: ["Marte", "Vênus", "Júpiter", "Saturno"],
+        correctAnswer: "Marte"
+    },
+    {
+        question: "Qual é a língua mais falada no mundo?",
+        options: ["Espanhol", "Mandarim", "Inglês", "Árabe"],
+        correctAnswer: "Mandarim"
+    }
+];
 
-    // Pergunta 1
-    const q1Answer = document.querySelector('input[name="q1"]:checked');
-    if (q1Answer && q1Answer.value === 'C') score++;
+let currentQuestionIndex = 0;
+let score = 0;
 
-    // Pergunta 2
-    const q2Answer = document.querySelector('input[name="q2"]:checked');
-    if (q2Answer && q2Answer.value === 'C') score++;
+document.getElementById('start-btn').addEventListener('click', startQuiz);
+document.getElementById('next-btn').addEventListener('click', nextQuestion);
 
-    // Pergunta 3
-    const q3Answer = document.querySelector('input[name="q3"]:checked');
-    if (q3Answer && q3Answer.value === 'B') score++;
+function startQuiz() {
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('quiz-screen').style.display = 'block';
+    showQuestion();
+}
 
-    // Pergunta 4
-    const q4Answer = document.querySelector('input[name="q4"]:checked');
-    if (q4Answer && q4Answer.value === 'A') score++;
+function showQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    document.getElementById('question-container').textContent = currentQuestion.question;
 
-    // Pergunta 5
-    const q5Answer = document.querySelector('input[name="q5"]:checked');
-    if (q5Answer && q5Answer.value === 'B') score++;
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = ''; // Limpar opções anteriores
 
-    // Exibir resultado
-    let feedbackMessage = '';
-    if (score === 5) {
-        feedbackMessage = 'Parabéns! Você acertou todas as perguntas!';
-    } else if (score >= 3) {
-        feedbackMessage = 'Muito bem! Você acertou algumas perguntas!';
-    } else {
-        feedbackMessage = 'Tente novamente! Você pode melhorar.';
+    currentQuestion.options.forEach(option => {
+        const label = document.createElement('label');
+        label.innerHTML = `
+            <input type="radio" name="answer" value="${option}"> ${option}
+        `;
+        optionsContainer.appendChild(label);
+    });
+
+    document.getElementById('next-btn').style.display = 'block';
+}
+
+function nextQuestion() {
+    const selectedOption = document.querySelector('input[name="answer"]:checked');
+    if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        if (userAnswer === questions[currentQuestionIndex].correctAnswer) {
+            score++;
+        }
     }
 
-    document.getElementById('score').textContent = `Você acertou ${score} de 5 perguntas.`;
-    document.getElementById('feedback').textContent = feedbackMessage;
+    currentQuestionIndex++;
 
-    if (score === 5) {
-        document.getElementById('feedback').classList.add('correct');
-        document.getElementById('feedback').classList.remove('incorrect');
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
     } else {
-        document.getElementById('feedback').classList.add('incorrect');
-        document.getElementById('feedback').classList.remove('correct');
+        showResult();
     }
+}
 
+function showResult() {
+    document.getElementById('quiz-screen').style.display = 'none';
     document.getElementById('result').style.display = 'block';
-});
 
-// Função para resetar o quiz
+    document.getElementById('score').textContent = `Você acertou ${score} de ${questions.length} perguntas.`;
+
+    const feedback = document.getElementById('feedback');
+    if (score === questions.length) {
+        feedback.textContent = 'Parabéns! Você acertou todas as perguntas!';
+        feedback.classList.add('correct');
+        feedback.classList.remove('incorrect');
+    } else if (score >= Math.floor(questions.length / 2)) {
+        feedback.textContent = 'Muito bem! Você acertou algumas perguntas!';
+        feedback.classList.add('correct');
+        feedback.classList.remove('incorrect');
+    } else {
+        feedback.textContent = 'Tente novamente! Você pode melhorar.';
+        feedback.classList.add('incorrect');
+        feedback.classList.remove('correct');
+    }
+}
+
 function resetQuiz() {
-    document.getElementById('quiz-form').reset();
+    currentQuestionIndex = 0;
+    score = 0;
     document.getElementById('result').style.display = 'none';
+    document.getElementById('start-screen').style.display = 'block';
 }
