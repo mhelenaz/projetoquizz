@@ -106,7 +106,7 @@
     </div>
 
     <script>
-        // Array de perguntas do quiz
+        // Array de 20 perguntas do quiz
         const questions = [
             {
                 question: "Qual é a capital da França?",
@@ -132,6 +132,81 @@
                 question: "Em que ano a Segunda Guerra Mundial terminou?",
                 options: ["1942", "1945", "1950", "1939"],
                 answer: "1945"
+            },
+            {
+                question: "Qual o animal mais rápido do mundo?",
+                options: ["Leão", "Guepardo", "Falcão-peregrino", "Cavalo"],
+                answer: "Falcão-peregrino"
+            },
+            {
+                question: "Quantos continentes existem no mundo?",
+                options: ["5", "6", "7", "8"],
+                answer: "7"
+            },
+            {
+                question: "Qual é a capital do Japão?",
+                options: ["Seul", "Pequim", "Bangkok", "Tóquio"],
+                answer: "Tóquio"
+            },
+            {
+                question: "Quem escreveu a obra 'Dom Quixote'?",
+                options: ["Shakespeare", "Cervantes", "Machado de Assis", "Dante"],
+                answer: "Cervantes"
+            },
+            {
+                question: "Qual o maior oceano da Terra?",
+                options: ["Atlântico", "Índico", "Ártico", "Pacífico"],
+                answer: "Pacífico"
+            },
+            {
+                question: "Em que país fica a Torre de Pisa?",
+                options: ["França", "Itália", "Alemanha", "Espanha"],
+                answer: "Itália"
+            },
+            {
+                question: "Qual o metal líquido à temperatura ambiente?",
+                options: ["Ferro", "Ouro", "Mercúrio", "Alumínio"],
+                answer: "Mercúrio"
+            },
+            {
+                question: "Quem foi o primeiro homem a pisar na Lua?",
+                options: ["Yuri Gagarin", "Buzz Aldrin", "Neil Armstrong", "Michael Collins"],
+                answer: "Neil Armstrong"
+            },
+            {
+                question: "Quantos ossos tem um esqueleto humano adulto?",
+                options: ["206", "210", "198", "200"],
+                answer: "206"
+            },
+            {
+                question: "Qual o nome da galáxia em que vivemos?",
+                options: ["Andrômeda", "Triângulo", "Via Láctea", "Centaurus A"],
+                answer: "Via Láctea"
+            },
+            {
+                question: "Quem foi o líder da Revolução Cubana?",
+                options: ["Che Guevara", "Fidel Castro", "Raúl Castro", "Camilo Cienfuegos"],
+                answer: "Fidel Castro"
+            },
+            {
+                question: "Qual o maior deserto do mundo?",
+                options: ["Saara", "Gobi", "Atacama", "Antártico"],
+                answer: "Antártico"
+            },
+            {
+                question: "Em qual cidade foi assinado o Tratado de Versalhes?",
+                options: ["Paris", "Londres", "Genebra", "Berlim"],
+                answer: "Paris"
+            },
+            {
+                question: "Qual o menor país do mundo?",
+                options: ["Mônaco", "Nauru", "Vaticano", "San Marino"],
+                answer: "Vaticano"
+            },
+            {
+                question: "Quem descobriu o Brasil?",
+                options: ["Vasco da Gama", "Pedro Álvares Cabral", "Fernão de Magalhães", "Cristóvão Colombo"],
+                answer: "Pedro Álvares Cabral"
             }
         ];
 
@@ -167,13 +242,13 @@
                 const button = document.createElement('button');
                 button.textContent = option;
                 button.classList.add('option-button');
-                button.onclick = () => selectOption(option, currentQuestion.answer);
+                button.onclick = (event) => selectOption(event, option, currentQuestion.answer);
                 optionsContainer.appendChild(button);
             });
         }
 
         // Função chamada quando uma opção é selecionada
-        function selectOption(selectedOption, correctAnswer) {
+        function selectOption(event, selectedOption, correctAnswer) {
             const buttons = optionsContainer.querySelectorAll('.option-button');
             buttons.forEach(button => button.disabled = true); // Desabilita todos os botões
 
