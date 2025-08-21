@@ -1,3 +1,18 @@
+Claro! Adicionei um terceiro nível, o Nível Médio, com mais 10 perguntas.
+
+Agora, o jogo terá:
+
+Nível Fácil (10 perguntas)
+
+Nível Médio (10 perguntas)
+
+Nível Difícil (10 perguntas)
+
+Para que o jogador possa escolher entre os três níveis, adicionei um botão para o Nível Médio na tela inicial e na tela final.
+
+Basta copiar e colar o código abaixo para atualizar o seu arquivo index.html.
+
+HTML
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -77,9 +92,11 @@
         .difficulty-button.easy {
             background-color: #4CAF50;
         }
+        .difficulty-button.medium {
+            background-color: #FFA500;
+        }
         .difficulty-button.hard {
             background-color: #f44336;
-            margin-left: 10px;
         }
         .hidden {
             display: none;
@@ -93,6 +110,7 @@
         <div id="start-screen">
             <p>Escolha um nível para começar:</p>
             <button class="difficulty-button easy" onclick="startGame('easy')">Nível Fácil</button>
+            <button class="difficulty-button medium" onclick="startGame('medium')">Nível Médio</button>
             <button class="difficulty-button hard" onclick="startGame('hard')">Nível Difícil</button>
         </div>
 
@@ -111,6 +129,7 @@
             <h2>Fim do Jogo!</h2>
             <p>Sua pontuação final é: <span id="final-score">0</span></p>
             <button class="difficulty-button easy" onclick="startGame('easy')">Jogar Novamente (Fácil)</button>
+            <button class="difficulty-button medium" onclick="startGame('medium')">Jogar Novamente (Médio)</button>
             <button class="difficulty-button hard" onclick="startGame('hard')">Jogar Novamente (Difícil)</button>
         </div>
     </div>
@@ -167,6 +186,60 @@
                 question: "Qual o metal líquido à temperatura ambiente?",
                 options: ["Ferro", "Ouro", "Mercúrio", "Alumínio"],
                 answer: "Mercúrio"
+            }
+        ];
+
+        // Array de 10 perguntas de nível MÉDIO
+        const questionsMedium = [
+            {
+                question: "Qual é o rio mais longo do mundo?",
+                options: ["Rio Nilo", "Rio Amazonas", "Rio Yangtze", "Rio Mississipi"],
+                answer: "Rio Amazonas"
+            },
+            {
+                question: "Quem escreveu a obra 'O Pequeno Príncipe'?",
+                options: ["Antoine de Saint-Exupéry", "Victor Hugo", "Lewis Carroll", "J.K. Rowling"],
+                answer: "Antoine de Saint-Exupéry"
+            },
+            {
+                question: "Qual o nome da montanha mais alta do mundo?",
+                options: ["Monte Everest", "K2", "Monte Kilimanjaro", "Monte Fuji"],
+                answer: "Monte Everest"
+            },
+            {
+                question: "Quantos corações tem um polvo?",
+                options: ["Um", "Dois", "Três", "Quatro"],
+                answer: "Três"
+            },
+            {
+                question: "Em que ano a Revolução Francesa começou?",
+                options: ["1789", "1776", "1815", "1914"],
+                answer: "1789"
+            },
+            {
+                question: "Qual o nome da capital da Austrália?",
+                options: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+                answer: "Canberra"
+            },
+            {
+                question: "Quem foi o compositor da 'Nona Sinfonia'?",
+                options: ["Mozart", "Beethoven", "Bach", "Vivaldi"],
+                answer: "Beethoven"
+            },
+            {
+                question: "Qual o principal componente da atmosfera de Vênus?",
+                options: ["Nitrogênio", "Oxigênio", "Dióxido de carbono", "Hidrogênio"],
+                answer: "Dióxido de carbono"
+            },
+            {
+                question: "Qual o país com a maior população do mundo?",
+                options: ["Índia", "China", "Estados Unidos", "Brasil"],
+                answer: "Índia"
+            },
+            {
+                question: "Qual o nome do inventor da lâmpada incandescente?",
+                options: ["Nikola Tesla", "Thomas Edison", "Alexander Graham Bell", "Albert Einstein"],
+                answer: "Thomas Edison"
             }
         ];
 
@@ -238,7 +311,13 @@
 
         // Função para começar o jogo, agora com a opção de nível
         function startGame(level) {
-            questions = level === 'easy' ? questionsEasy : questionsHard;
+            if (level === 'easy') {
+                questions = questionsEasy;
+            } else if (level === 'medium') {
+                questions = questionsMedium;
+            } else {
+                questions = questionsHard;
+            }
             currentQuestionIndex = 0;
             score = 0;
             scoreElement.textContent = score;
