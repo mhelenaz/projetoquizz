@@ -1,3 +1,20 @@
+Claro! Para criar um nível fácil e um nível difícil, vamos organizar as perguntas em dois grupos.
+
+O nível Fácil terá 10 perguntas mais simples, com temas de conhecimento geral.
+O nível Difícil terá 10 perguntas mais complexas e detalhadas.
+
+O jogador poderá escolher o nível no início do jogo. Para isso, vamos fazer as seguintes modificações:
+
+Adicionar um botão de "Nível Difícil" na tela inicial.
+
+Criar dois arrays de perguntas no JavaScript: questionsEasy e questionsHard.
+
+Modificar a função startGame para aceitar um parâmetro que define qual array de perguntas será usado.
+
+Basta copiar e colar o código abaixo em seu arquivo index.html.
+
+HTML
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -63,7 +80,7 @@
             margin-top: 20px;
             color: #777;
         }
-        .start-button {
+        .start-button, .difficulty-button {
             background-color: #4CAF50;
             color: white;
             padding: 15px 30px;
@@ -72,6 +89,13 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 20px;
+        }
+        .difficulty-button.easy {
+            background-color: #4CAF50;
+        }
+        .difficulty-button.hard {
+            background-color: #f44336;
+            margin-left: 10px;
         }
         .hidden {
             display: none;
@@ -83,8 +107,9 @@
         <h1>Quiz Divertido</h1>
         
         <div id="start-screen">
-            <p>Clique para começar o jogo!</p>
-            <button class="start-button" onclick="startGame()">Começar Quiz</button>
+            <p>Escolha um nível para começar:</p>
+            <button class="difficulty-button easy" onclick="startGame('easy')">Nível Fácil</button>
+            <button class="difficulty-button hard" onclick="startGame('hard')">Nível Difícil</button>
         </div>
 
         <div id="game-screen" class="hidden">
@@ -101,13 +126,14 @@
         <div id="end-screen" class="hidden">
             <h2>Fim do Jogo!</h2>
             <p>Sua pontuação final é: <span id="final-score">0</span></p>
-            <button class="start-button" onclick="startGame()">Jogar Novamente</button>
+            <button class="difficulty-button easy" onclick="startGame('easy')">Jogar Novamente (Fácil)</button>
+            <button class="difficulty-button hard" onclick="startGame('hard')">Jogar Novamente (Difícil)</button>
         </div>
     </div>
 
     <script>
-        // Array de 20 perguntas do quiz
-        const questions = [
+        // Array de 10 perguntas de nível FÁCIL
+        const questionsEasy = [
             {
                 question: "Qual é a capital da França?",
                 options: ["Berlim", "Madri", "Paris", "Roma"],
@@ -124,24 +150,9 @@
                 answer: "Da Vinci"
             },
             {
-                question: "Qual é o elemento químico mais abundante no universo?",
-                options: ["Oxigênio", "Hélio", "Carbono", "Hidrogênio"],
-                answer: "Hidrogênio"
-            },
-            {
-                question: "Em que ano a Segunda Guerra Mundial terminou?",
-                options: ["1942", "1945", "1950", "1939"],
-                answer: "1945"
-            },
-            {
                 question: "Qual o animal mais rápido do mundo?",
                 options: ["Leão", "Guepardo", "Falcão-peregrino", "Cavalo"],
                 answer: "Falcão-peregrino"
-            },
-            {
-                question: "Quantos continentes existem no mundo?",
-                options: ["5", "6", "7", "8"],
-                answer: "7"
             },
             {
                 question: "Qual é a capital do Japão?",
@@ -149,29 +160,9 @@
                 answer: "Tóquio"
             },
             {
-                question: "Quem escreveu a obra 'Dom Quixote'?",
-                options: ["Shakespeare", "Cervantes", "Machado de Assis", "Dante"],
-                answer: "Cervantes"
-            },
-            {
-                question: "Qual o maior oceano da Terra?",
-                options: ["Atlântico", "Índico", "Ártico", "Pacífico"],
-                answer: "Pacífico"
-            },
-            {
                 question: "Em que país fica a Torre de Pisa?",
                 options: ["França", "Itália", "Alemanha", "Espanha"],
                 answer: "Itália"
-            },
-            {
-                question: "Qual o metal líquido à temperatura ambiente?",
-                options: ["Ferro", "Ouro", "Mercúrio", "Alumínio"],
-                answer: "Mercúrio"
-            },
-            {
-                question: "Quem foi o primeiro homem a pisar na Lua?",
-                options: ["Yuri Gagarin", "Buzz Aldrin", "Neil Armstrong", "Michael Collins"],
-                answer: "Neil Armstrong"
             },
             {
                 question: "Quantos ossos tem um esqueleto humano adulto?",
@@ -179,37 +170,77 @@
                 answer: "206"
             },
             {
-                question: "Qual o nome da galáxia em que vivemos?",
-                options: ["Andrômeda", "Triângulo", "Via Láctea", "Centaurus A"],
-                answer: "Via Láctea"
-            },
-            {
-                question: "Quem foi o líder da Revolução Cubana?",
-                options: ["Che Guevara", "Fidel Castro", "Raúl Castro", "Camilo Cienfuegos"],
-                answer: "Fidel Castro"
-            },
-            {
-                question: "Qual o maior deserto do mundo?",
-                options: ["Saara", "Gobi", "Atacama", "Antártico"],
-                answer: "Antártico"
-            },
-            {
-                question: "Em qual cidade foi assinado o Tratado de Versalhes?",
-                options: ["Paris", "Londres", "Genebra", "Berlim"],
-                answer: "Paris"
-            },
-            {
-                question: "Qual o menor país do mundo?",
-                options: ["Mônaco", "Nauru", "Vaticano", "San Marino"],
-                answer: "Vaticano"
+                question: "Qual o maior oceano da Terra?",
+                options: ["Atlântico", "Índico", "Ártico", "Pacífico"],
+                answer: "Pacífico"
             },
             {
                 question: "Quem descobriu o Brasil?",
                 options: ["Vasco da Gama", "Pedro Álvares Cabral", "Fernão de Magalhães", "Cristóvão Colombo"],
                 answer: "Pedro Álvares Cabral"
+            },
+            {
+                question: "Qual o metal líquido à temperatura ambiente?",
+                options: ["Ferro", "Ouro", "Mercúrio", "Alumínio"],
+                answer: "Mercúrio"
             }
         ];
 
+        // Array de 10 perguntas de nível DIFÍCIL
+        const questionsHard = [
+            {
+                question: "Quem formulou a Teoria da Relatividade Geral?",
+                options: ["Isaac Newton", "Niels Bohr", "Albert Einstein", "Stephen Hawking"],
+                answer: "Albert Einstein"
+            },
+            {
+                question: "Em que ano a Batalha de Hastings ocorreu?",
+                options: ["1066", "1492", "1776", "1815"],
+                answer: "1066"
+            },
+            {
+                question: "Qual é a massa atômica aproximada do Ouro (Au)?",
+                options: ["197", "108", "79", "39"],
+                answer: "197"
+            },
+            {
+                question: "Quem foi o líder da Revolução Haitiana?",
+                options: ["Toussaint Louverture", "Jean-Jacques Dessalines", "François Duvalier", "Henri Christophe"],
+                answer: "Toussaint Louverture"
+            },
+            {
+                question: "Qual o teorema matemático que afirma que 'a soma dos quadrados dos catetos é igual ao quadrado da hipotenusa'?",
+                options: ["Teorema de Tales", "Teorema de Pitágoras", "Teorema de Fermat", "Teorema de Euclides"],
+                answer: "Teorema de Pitágoras"
+            },
+            {
+                question: "Qual foi o último país a se tornar membro da ONU?",
+                options: ["Timor-Leste", "Montenegro", "Sudão do Sul", "Sérvia"],
+                answer: "Sudão do Sul"
+            },
+            {
+                question: "O processo de conversão de luz em energia química em plantas é conhecido como:",
+                options: ["Respiração celular", "Fotossíntese", "Transpiração", "Fermentação"],
+                answer: "Fotossíntese"
+            },
+            {
+                question: "Em que cidade o Tratado de Tordesilhas foi assinado?",
+                options: ["Lisboa", "Tordesilhas", "Madri", "Sevilha"],
+                answer: "Tordesilhas"
+            },
+            {
+                question: "Qual o único mamífero que pode voar?",
+                options: ["Morcego", "Pterossauro", "Esquilo-voador", "Pato"],
+                answer: "Morcego"
+            },
+            {
+                question: "Qual é o nome do criador da linguagem de programação Python?",
+                options: ["Linus Torvalds", "James Gosling", "Guido van Rossum", "Bill Gates"],
+                answer: "Guido van Rossum"
+            }
+        ];
+
+        let questions; // Variável que irá armazenar o array de perguntas do nível escolhido
         let currentQuestionIndex = 0;
         let score = 0;
         
@@ -221,8 +252,9 @@
         const scoreElement = document.getElementById('score');
         const finalScoreElement = document.getElementById('final-score');
 
-        // Função para começar o jogo
-        function startGame() {
+        // Função para começar o jogo, agora com a opção de nível
+        function startGame(level) {
+            questions = level === 'easy' ? questionsEasy : questionsHard;
             currentQuestionIndex = 0;
             score = 0;
             scoreElement.textContent = score;
