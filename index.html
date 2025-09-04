@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Quiz Divertido</title>
     <style>
         /* Estilos CSS para o visual do quiz */
@@ -91,25 +91,34 @@
 <body>
     <div class="quiz-container">
         <h1>Quiz Divertido</h1>
-        
-        <div id="start-screen">
+
+        <!-- Tela de Boas-vindas -->
+        <div id="welcome-screen">
+            <h2>Bem-vindo ao Quiz Divertido!</h2>
+            <p>Prepare-se para testar seus conhecimentos.</p>
+            <button class="start-button" onclick="showLevelSelection()">Começar</button>
+        </div>
+
+        <!-- Tela de seleção do nível -->
+        <div id="start-screen" class="hidden">
             <p>Escolha um nível para começar:</p>
             <button class="difficulty-button easy" onclick="startGame('easy')">Nível Fácil</button>
             <button class="difficulty-button medium" onclick="startGame('medium')">Nível Médio</button>
             <button class="difficulty-button hard" onclick="startGame('hard')">Nível Difícil</button>
         </div>
 
+        <!-- Tela do jogo -->
         <div id="game-screen" class="hidden">
             <div class="question-box">
                 <p id="question-text" class="question-text"></p>
-                <div id="options-container" class="options-container">
-                    </div>
+                <div id="options-container" class="options-container"></div>
             </div>
             <div class="score-box">
                 Pontuação: <span id="score">0</span>
             </div>
         </div>
 
+        <!-- Tela de fim de jogo -->
         <div id="end-screen" class="hidden">
             <h2>Fim do Jogo!</h2>
             <p>Sua pontuação final é: <span id="final-score">0</span></p>
@@ -120,7 +129,7 @@
     </div>
 
     <script>
-        // Array de 10 perguntas de nível FÁCIL
+        // Perguntas nível Fácil
         const questionsEasy = [
             {
                 question: "Qual é a capital da França?",
@@ -174,7 +183,7 @@
             }
         ];
 
-        // Array de 10 perguntas de nível MÉDIO
+        // Perguntas nível Médio
         const questionsMedium = [
             {
                 question: "Qual é o rio mais longo do mundo?",
@@ -228,7 +237,7 @@
             }
         ];
 
-        // Array de 10 perguntas de nível DIFÍCIL
+        // Perguntas nível Difícil
         const questionsHard = [
             {
                 question: "Quem formulou a Teoria da Relatividade Geral?",
@@ -282,10 +291,12 @@
             }
         ];
 
-        let questions; // Variável que irá armazenar o array de perguntas do nível escolhido
+        let questions; // perguntas do nível escolhido
         let currentQuestionIndex = 0;
         let score = 0;
-        
+
+        // Seleção de elementos DOM
+        const welcomeScreen = document.getElementById('welcome-screen');
         const startScreen = document.getElementById('start-screen');
         const gameScreen = document.getElementById('game-screen');
         const endScreen = document.getElementById('end-screen');
@@ -294,7 +305,13 @@
         const scoreElement = document.getElementById('score');
         const finalScoreElement = document.getElementById('final-score');
 
-        // Função para começar o jogo, agora com a opção de nível
+        // Mostrar tela de seleção de nível
+        function showLevelSelection() {
+            welcomeScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        }
+
+        // Começar o jogo com o nível escolhido
         function startGame(level) {
             if (level === 'easy') {
                 questions = questionsEasy;
@@ -312,56 +329,4 @@
             showQuestion();
         }
 
-        // Função para exibir a pergunta e suas opções
-        function showQuestion() {
-            const currentQuestion = questions[currentQuestionIndex];
-            questionText.textContent = currentQuestion.question;
-            optionsContainer.innerHTML = ''; // Limpa as opções anteriores
-
-            currentQuestion.options.forEach(option => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-button');
-                button.onclick = (event) => selectOption(event, option, currentQuestion.answer);
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        // Função chamada quando uma opção é selecionada
-        function selectOption(event, selectedOption, correctAnswer) {
-            const buttons = optionsContainer.querySelectorAll('.option-button');
-            buttons.forEach(button => button.disabled = true); // Desabilita todos os botões
-
-            if (selectedOption === correctAnswer) {
-                score++;
-                scoreElement.textContent = score;
-                event.target.classList.add('correct');
-            } else {
-                event.target.classList.add('incorrect');
-                // Encontra e destaca a resposta correta
-                buttons.forEach(button => {
-                    if (button.textContent === correctAnswer) {
-                        button.classList.add('correct');
-                    }
-                });
-            }
-
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) {
-                    showQuestion();
-                } else {
-                    endGame();
-                }
-            }, 1000); // Espera 1 segundo antes de ir para a próxima pergunta
-        }
-
-        // Função para terminar o jogo
-        function endGame() {
-            gameScreen.classList.add('hidden');
-            endScreen.classList.remove('hidden');
-            finalScoreElement.textContent = score;
-        }
-    </script>
-</body>
-</html>>
+        // Exibir pergunta atual
