@@ -1,113 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Quiz Divertido</title>
-    <style>
-        /* Estilos CSS para o visual do quiz */
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .quiz-container {
-            width: 90%;
-            max-width: 600px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-        }
-        .question-box {
-            margin-bottom: 20px;
-        }
-        .question-text {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            color: #555;
-        }
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .option-button {
-            background-color: #e9e9e9;
-            border: none;
-            padding: 15px;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .option-button:hover {
-            background-color: #dcdcdc;
-        }
-        .correct {
-            background-color: #a8e6a8 !important;
-        }
-        .incorrect {
-            background-color: #ff9999 !important;
-        }
-        .score-box {
-            font-size: 1.2em;
-            margin-top: 20px;
-            color: #777;
-        }
-        .start-button, .difficulty-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        .difficulty-button.easy {
-            background-color: #4CAF50;
-        }
-        .difficulty-button.medium {
-            background-color: #FFA500;
-        }
-        .difficulty-button.hard {
-            background-color: #f44336;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div class="quiz-container">
         <h1>Quiz Divertido</h1>
-
-        <!-- Tela de Boas-vindas -->
-        <div id="welcome-screen">
-            <h2>Bem-vindo ao Quiz Divertido!</h2>
-            <p>Prepare-se para testar seus conhecimentos.</p>
-            <button class="start-button" onclick="showLevelSelection()">Começar</button>
-        </div>
-
-        <!-- Tela de seleção do nível -->
-        <div id="start-screen" class="hidden">
+        
+        <div id="start-screen">
             <p>Escolha um nível para começar:</p>
-            <button class="difficulty-button easy" onclick="startGame('easy')">Nível Fácil</button>
-            <button class="difficulty-button medium" onclick="startGame('medium')">Nível Médio</button>
-            <button class="difficulty-button hard" onclick="startGame('hard')">Nível Difícil</button>
+            <button class="difficulty-button easy" data-level="easy">Nível Fácil</button>
+            <button class="difficulty-button medium" data-level="medium">Nível Médio</button>
+            <button class="difficulty-button hard" data-level="hard">Nível Difícil</button>
         </div>
 
-        <!-- Tela do jogo -->
         <div id="game-screen" class="hidden">
             <div class="question-box">
                 <p id="question-text" class="question-text"></p>
@@ -118,215 +27,15 @@
             </div>
         </div>
 
-        <!-- Tela de fim de jogo -->
         <div id="end-screen" class="hidden">
             <h2>Fim do Jogo!</h2>
             <p>Sua pontuação final é: <span id="final-score">0</span></p>
-            <button class="difficulty-button easy" onclick="startGame('easy')">Jogar Novamente (Fácil)</button>
-            <button class="difficulty-button medium" onclick="startGame('medium')">Jogar Novamente (Médio)</button>
-            <button class="difficulty-button hard" onclick="startGame('hard')">Jogar Novamente (Difícil)</button>
+            <button class="difficulty-button easy" data-level="easy">Jogar Novamente (Fácil)</button>
+            <button class="difficulty-button medium" data-level="medium">Jogar Novamente (Médio)</button>
+            <button class="difficulty-button hard" data-level="hard">Jogar Novamente (Difícil)</button>
         </div>
     </div>
 
-    <script>
-        // Perguntas nível Fácil
-        const questionsEasy = [
-            {
-                question: "Qual é a capital da França?",
-                options: ["Berlim", "Madri", "Paris", "Roma"],
-                answer: "Paris"
-            },
-            {
-                question: "Qual o maior planeta do nosso sistema solar?",
-                options: ["Vênus", "Júpiter", "Marte", "Terra"],
-                answer: "Júpiter"
-            },
-            {
-                question: "Quem pintou a Mona Lisa?",
-                options: ["Van Gogh", "Picasso", "Da Vinci", "Michelangelo"],
-                answer: "Da Vinci"
-            },
-            {
-                question: "Qual o animal mais rápido do mundo?",
-                options: ["Leão", "Guepardo", "Falcão-peregrino", "Cavalo"],
-                answer: "Falcão-peregrino"
-            },
-            {
-                question: "Qual é a capital do Japão?",
-                options: ["Seul", "Pequim", "Bangkok", "Tóquio"],
-                answer: "Tóquio"
-            },
-            {
-                question: "Em que país fica a Torre de Pisa?",
-                options: ["França", "Itália", "Alemanha", "Espanha"],
-                answer: "Itália"
-            },
-            {
-                question: "Quantos ossos tem um esqueleto humano adulto?",
-                options: ["206", "210", "198", "200"],
-                answer: "206"
-            },
-            {
-                question: "Qual o maior oceano da Terra?",
-                options: ["Atlântico", "Índico", "Ártico", "Pacífico"],
-                answer: "Pacífico"
-            },
-            {
-                question: "Quem descobriu o Brasil?",
-                options: ["Vasco da Gama", "Pedro Álvares Cabral", "Fernão de Magalhães", "Cristóvão Colombo"],
-                answer: "Pedro Álvares Cabral"
-            },
-            {
-                question: "Qual o metal líquido à temperatura ambiente?",
-                options: ["Ferro", "Ouro", "Mercúrio", "Alumínio"],
-                answer: "Mercúrio"
-            }
-        ];
-
-        // Perguntas nível Médio
-        const questionsMedium = [
-            {
-                question: "Qual é o rio mais longo do mundo?",
-                options: ["Rio Nilo", "Rio Amazonas", "Rio Yangtze", "Rio Mississipi"],
-                answer: "Rio Amazonas"
-            },
-            {
-                question: "Quem escreveu a obra 'O Pequeno Príncipe'?",
-                options: ["Antoine de Saint-Exupéry", "Victor Hugo", "Lewis Carroll", "J.K. Rowling"],
-                answer: "Antoine de Saint-Exupéry"
-            },
-            {
-                question: "Qual o nome da montanha mais alta do mundo?",
-                options: ["Monte Everest", "K2", "Monte Kilimanjaro", "Monte Fuji"],
-                answer: "Monte Everest"
-            },
-            {
-                question: "Quantos corações tem um polvo?",
-                options: ["Um", "Dois", "Três", "Quatro"],
-                answer: "Três"
-            },
-            {
-                question: "Em que ano a Revolução Francesa começou?",
-                options: ["1789", "1776", "1815", "1914"],
-                answer: "1789"
-            },
-            {
-                question: "Qual o nome da capital da Austrália?",
-                options: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
-                answer: "Canberra"
-            },
-            {
-                question: "Quem foi o compositor da 'Nona Sinfonia'?",
-                options: ["Mozart", "Beethoven", "Bach", "Vivaldi"],
-                answer: "Beethoven"
-            },
-            {
-                question: "Qual o principal componente da atmosfera de Vênus?",
-                options: ["Nitrogênio", "Oxigênio", "Dióxido de carbono", "Hidrogênio"],
-                answer: "Dióxido de carbono"
-            },
-            {
-                question: "Qual o país com a maior população do mundo?",
-                options: ["Índia", "China", "Estados Unidos", "Brasil"],
-                answer: "Índia"
-            },
-            {
-                question: "Qual o nome do inventor da lâmpada incandescente?",
-                options: ["Nikola Tesla", "Thomas Edison", "Alexander Graham Bell", "Albert Einstein"],
-                answer: "Thomas Edison"
-            }
-        ];
-
-        // Perguntas nível Difícil
-        const questionsHard = [
-            {
-                question: "Quem formulou a Teoria da Relatividade Geral?",
-                options: ["Isaac Newton", "Niels Bohr", "Albert Einstein", "Stephen Hawking"],
-                answer: "Albert Einstein"
-            },
-            {
-                question: "Em que ano a Batalha de Hastings ocorreu?",
-                options: ["1066", "1492", "1776", "1815"],
-                answer: "1066"
-            },
-            {
-                question: "Qual é a massa atômica aproximada do Ouro (Au)?",
-                options: ["197", "108", "79", "39"],
-                answer: "197"
-            },
-            {
-                question: "Quem foi o líder da Revolução Haitiana?",
-                options: ["Toussaint Louverture", "Jean-Jacques Dessalines", "François Duvalier", "Henri Christophe"],
-                answer: "Toussaint Louverture"
-            },
-            {
-                question: "Qual o teorema matemático que afirma que 'a soma dos quadrados dos catetos é igual ao quadrado da hipotenusa'?",
-                options: ["Teorema de Tales", "Teorema de Pitágoras", "Teorema de Fermat", "Teorema de Euclides"],
-                answer: "Teorema de Pitágoras"
-            },
-            {
-                question: "Qual foi o último país a se tornar membro da ONU?",
-                options: ["Timor-Leste", "Montenegro", "Sudão do Sul", "Sérvia"],
-                answer: "Sudão do Sul"
-            },
-            {
-                question: "O processo de conversão de luz em energia química em plantas é conhecido como:",
-                options: ["Respiração celular", "Fotossíntese", "Transpiração", "Fermentação"],
-                answer: "Fotossíntese"
-            },
-            {
-                question: "Em que cidade o Tratado de Tordesilhas foi assinado?",
-                options: ["Lisboa", "Tordesilhas", "Madri", "Sevilha"],
-                answer: "Tordesilhas"
-            },
-            {
-                question: "Qual o único mamífero que pode voar?",
-                options: ["Morcego", "Pterossauro", "Esquilo-voador", "Pato"],
-                answer: "Morcego"
-            },
-            {
-                question: "Qual é o nome do criador da linguagem de programação Python?",
-                options: ["Linus Torvalds", "James Gosling", "Guido van Rossum", "Bill Gates"],
-                answer: "Guido van Rossum"
-            }
-        ];
-
-        let questions; // perguntas do nível escolhido
-        let currentQuestionIndex = 0;
-        let score = 0;
-
-        // Seleção de elementos DOM
-        const welcomeScreen = document.getElementById('welcome-screen');
-        const startScreen = document.getElementById('start-screen');
-        const gameScreen = document.getElementById('game-screen');
-        const endScreen = document.getElementById('end-screen');
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const scoreElement = document.getElementById('score');
-        const finalScoreElement = document.getElementById('final-score');
-
-        // Mostrar tela de seleção de nível
-        function showLevelSelection() {
-            welcomeScreen.classList.add('hidden');
-            startScreen.classList.remove('hidden');
-        }
-
-        // Começar o jogo com o nível escolhido
-        function startGame(level) {
-            if (level === 'easy') {
-                questions = questionsEasy;
-            } else if (level === 'medium') {
-                questions = questionsMedium;
-            } else {
-                questions = questionsHard;
-            }
-            currentQuestionIndex = 0;
-            score = 0;
-            scoreElement.textContent = score;
-            startScreen.classList.add('hidden');
-            gameScreen.classList.remove('hidden');
-            endScreen.classList.add('hidden');
-            showQuestion();
-        }
-
-        // Exibir pergunta atual
+    <script src="script.js"></script>
+</body>
+</html>

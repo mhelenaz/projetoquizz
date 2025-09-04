@@ -1,148 +1,80 @@
-/* styles.css */
-
-/* Resetando margens e padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Estilos CSS para o visual do quiz */
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: white;
-    overflow: hidden;
+    margin: 0;
+    background-color: #f0f0f0;
 }
-
-/* Container centralizado */
-.container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 40px;
-    border-radius: 15px;
-    width: 100%;
+.quiz-container {
+    width: 90%;
     max-width: 600px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.5s ease-in-out;
 }
-
-/* Animação de entrada suave */
-.container.animate {
-    transform: scale(1.05);
-}
-
 h1 {
-    font-size: 2.5em;
+    color: #333;
+}
+.question-box {
     margin-bottom: 20px;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-
-p {
-    font-size: 1.1em;
-    margin-bottom: 30px;
-    opacity: 0.8;
-}
-
-/* Botão de início */
-button {
-    padding: 12px 30px;
-    background-color: #2575fc;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.1em;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    outline: none;
-}
-
-/* Efeito no botão ao passar o mouse */
-button:hover {
-    background-color: #6a11cb;
-    transform: scale(1.1);
-}
-
-/* Quiz */
-#question-container {
-    font-size: 1.6em;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-#options-container {
-    margin-bottom: 30px;
-}
-
-#options-container label {
-    display: block;
-    margin: 12px 0;
-    font-size: 1.2em;
-    padding: 8px 15px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-#options-container label:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-    transform: translateX(5px);
-}
-
-/* Botão de "Próxima Pergunta" */
-#next-btn {
-    padding: 12px 30px;
-    background-color: #28a745;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.1em;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    outline: none;
-}
-
-/* Tela de resultados */
-.result {
+.question-text {
     font-size: 1.5em;
-    color: white;
-    text-align: center;
+    margin-bottom: 15px;
+    color: #555;
 }
-
-#feedback {
-    font-size: 1.3em;
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.option-button {
+    background-color: #e9e9e9;
+    border: none;
+    padding: 15px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+.option-button:hover {
+    background-color: #dcdcdc;
+}
+.correct {
+    background-color: #a8e6a8 !important;
+}
+.incorrect {
+    background-color: #ff9999 !important;
+}
+.score-box {
+    font-size: 1.2em;
+    margin-top: 20px;
+    color: #777;
+}
+.difficulty-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     margin-top: 20px;
 }
-
-#feedback.correct {
-    color: #28a745;
+.difficulty-button.easy {
+    background-color: #4CAF50;
 }
-
-#feedback.incorrect {
-    color: #dc3545;
+.difficulty-button.medium {
+    background-color: #FFA500;
 }
-
-button:focus {
-    outline: none;
+.difficulty-button.hard {
+    background-color: #f44336;
 }
-
-/* Transição suave na tela do quiz */
-#quiz-screen {
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards;
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+.hidden {
+    display: none;
 }
