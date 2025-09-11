@@ -7,10 +7,19 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+    <!-- Tela de boas-vindas -->
+    <div id="welcome-screen" class="welcome-screen">
+        <h1>Bem-vindo ao Quiz Divertido!</h1>
+        <p>Prepare-se para testar seus conhecimentos.</p>
+        <button id="start-btn">Começar</button>
+    </div>
+
+    <!-- Container do quiz -->
     <div class="quiz-container">
         <h1>Quiz Divertido</h1>
         
-        <div id="start-screen">
+        <div id="start-screen" class="hidden">
             <p>Escolha um nível para começar:</p>
             <button class="difficulty-button easy" data-level="easy">Nível Fácil</button>
             <button class="difficulty-button medium" data-level="medium">Nível Médio</button>

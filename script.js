@@ -92,7 +92,7 @@ function showQuestion() {
 }
 
 function selectOption(selectedOption, correctAnswer, selectedButton) {
-    // Disable all option buttons
+    // Desabilita todos os botões de opção
     const buttons = optionsContainer.querySelectorAll('button');
     buttons.forEach(btn => btn.disabled = true);
 
@@ -102,7 +102,7 @@ function selectOption(selectedOption, correctAnswer, selectedButton) {
         selectedButton.classList.add('correct');
     } else {
         selectedButton.classList.add('incorrect');
-        // Highlight the correct answer
+        // Destaca a resposta correta
         buttons.forEach(btn => {
             if (btn.textContent === correctAnswer) {
                 btn.classList.add('correct');
@@ -125,3 +125,16 @@ function endGame() {
     endScreen.classList.remove('hidden');
     finalScoreElement.textContent = score;
 }
+
+// --- NOVO: Controle da tela de boas-vindas ---
+const welcomeScreen = document.getElementById('welcome-screen');
+const startBtn = document.getElementById('start-btn');
+
+// Começa com a tela de seleção de nível escondida, só mostra a de boas-vindas
+startScreen.classList.add('hidden');
+
+startBtn.addEventListener('click', () => {
+    welcomeScreen.style.display = 'none';  // esconde boas-vindas
+    startScreen.classList.remove('hidden'); // mostra seleção de nível
+});
+
