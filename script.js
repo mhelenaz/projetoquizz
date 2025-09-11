@@ -126,15 +126,17 @@ function endGame() {
     finalScoreElement.textContent = score;
 }
 
-// --- NOVO: Controle da tela de boas-vindas ---
+// --- Controle da tela de boas-vindas ---
 const welcomeScreen = document.getElementById('welcome-screen');
 const startBtn = document.getElementById('start-btn');
+const quizContainer = document.querySelector('.quiz-container');
 
-// Começa com a tela de seleção de nível escondida, só mostra a de boas-vindas
+// Inicia com quiz escondido e seleção de nível escondida
 startScreen.classList.add('hidden');
+quizContainer.style.display = 'none';
 
 startBtn.addEventListener('click', () => {
-    welcomeScreen.style.display = 'none';  // esconde boas-vindas
-    startScreen.classList.remove('hidden'); // mostra seleção de nível
+    welcomeScreen.style.display = 'none';    // Esconde boas-vindas
+    quizContainer.style.display = 'block';   // Mostra quiz
+    startScreen.classList.remove('hidden');  // Mostra seleção de nível
 });
-
