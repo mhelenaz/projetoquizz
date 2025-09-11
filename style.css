@@ -1,98 +1,259 @@
-/* Estilos da tela de boas-vindas */
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- Tela de boas-vindas --- */
 .welcome-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #4a90e2;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    font-size: 1.8rem;
-    z-index: 10000;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
 }
 
-.welcome-screen button {
-    margin-top: 20px;
-    padding: 10px 25px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border: none;
-    border-radius: 6px;
-    background-color: #fff;
-    color: #4a90e2;
-    transition: background-color 0.3s ease;
+.welcome-screen h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  text-shadow: 0 0 8px rgba(0,0,0,0.3);
 }
 
-.welcome-screen button:hover {
-    background-color: #d4d4d4;
+.welcome-screen p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  font-weight: 500;
 }
 
-/* Esconde elementos com esta classe */
-.hidden {
-    display: none;
+.btn-primary {
+  background-color: #ff6f61;
+  color: white;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 111, 97, 0.6);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilos básicos do quiz */
+.btn-primary:hover {
+  background-color: #ff3b2d;
+  box-shadow: 0 8px 20px rgba(255, 59, 45, 0.8);
+}
+
+/* --- Container do quiz --- */
 .quiz-container {
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    display: none; /* Esconde quiz inicialmente */
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 25px 35px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-.difficulty-button {
-    margin: 5px;
-    padding: 10px 15px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #4a90e2;
-    background-color: #fff;
-    color: #4a90e2;
-    transition: background-color 0.3s ease;
+.quiz-title {
+  color: #4a4a4a;
+  font-size: 2.8rem;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 700;
 }
 
-.difficulty-button:hover {
-    background-color: #4a90e2;
-    color: white;
+/* Subtítulo */
+.subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+  text-align: center;
+  color: #333;
+}
+
+/* Botões de dificuldade */
+.difficulty-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  min-width: 120px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.difficulty-button.easy {
+  background-color: #7ed6df;
+  color: #045d56;
+  border-color: #48dbfb;
+}
+
+.difficulty-button.easy:hover {
+  background-color: #48dbfb;
+  color: white;
+  border-color: #1e90ff;
+  box-shadow: 0 6px 15px #48dbfb;
+}
+
+.difficulty-button.medium {
+  background-color: #feca57;
+  color: #6d4c00;
+  border-color: #ffb142;
+}
+
+.difficulty-button.medium:hover {
+  background-color: #ffb142;
+  color: white;
+  border-color: #ffa502;
+  box-shadow: 0 6px 15px #ffb142;
+}
+
+.difficulty-button.hard {
+  background-color: #ff6b6b;
+  color: #720026;
+  border-color: #ee5253;
+}
+
+.difficulty-button.hard:hover {
+  background-color: #ee5253;
+  color: white;
+  border-color: #ff4757;
+  box-shadow: 0 6px 15px #ee5253;
+}
+
+/* --- Tela de perguntas --- */
+.question-box {
+  margin-bottom: 25px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: inset 0 0 8px #e0e0e0;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+}
+
+.question-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #222;
+}
+
+/* Opções */
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .option-button {
-    display: block;
-    margin: 8px 0;
-    padding: 10px;
-    width: 100%;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #333;
-    background-color: #f0f0f0;
-    transition: background-color 0.3s ease;
+  padding: 14px 20px;
+  background-color: #ffffff;
+  border: 2px solid #4a90e2;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  box-shadow: 0 2px 7px rgba(74, 144, 226, 0.2);
 }
 
-.option-button:hover {
-    background-color: #ddd;
+.option-button:hover:not(:disabled) {
+  background-color: #4a90e2;
+  color: white;
+  border-color: #3a78c2;
+  box-shadow: 0 6px 15px rgba(58, 120, 194, 0.4);
 }
 
+.option-button:disabled {
+  cursor: default;
+  opacity: 0.75;
+}
+
+/* Estados das respostas */
 .option-button.correct {
-    background-color: #4caf50;
-    color: white;
-    border-color: #4caf50;
+  background-color: #2ecc71 !important;
+  border-color: #27ae60 !important;
+  color: white !important;
+  box-shadow: 0 6px 18px #27ae60;
 }
 
 .option-button.incorrect {
-    background-color: #f44336;
-    color: white;
-    border-color: #f44336;
+  background-color: #e74c3c !important;
+  border-color: #c0392b !important;
+  color: white !important;
+  box-shadow: 0 6px 18px #c0392b;
 }
 
+/* Pontuação */
 .score-box {
-    margin-top: 15px;
-    font-weight: bold;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #555;
+  text-align: right;
+  margin-top: 10px;
+}
+
+/* --- Tela final --- */
+.end-screen {
+  text-align: center;
+}
+
+.end-screen h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.end-screen p {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+/* --- Classes auxiliares --- */
+.hidden {
+  display: none !important;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .quiz-container {
+    margin: 20px;
+    padding: 15px 20px;
+  }
+
+  .welcome-screen h1 {
+    font-size: 2.2rem;
+  }
+
+  .welcome-screen p {
+    font-size: 1.2rem;
+  }
+
+  .btn-primary {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+  }
+
+  .quiz-title {
+    font-size: 2rem;
+  }
+
+  .option-button {
+    font-size: 1rem;
+    padding: 12px 16px;
+  }
 }

@@ -1,50 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quiz Divertido</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Divertido</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-    <!-- Tela de boas-vindas -->
-    <div id="welcome-screen" class="welcome-screen">
-        <h1>Bem-vindo ao Quiz Divertido!</h1>
-        <p>Prepare-se para testar seus conhecimentos.</p>
-        <button id="start-btn">Começar</button>
+  <!-- Tela de boas-vindas -->
+  <div id="welcome-screen" class="welcome-screen">
+    <h1>🎉 Bem-vindo ao Quiz Divertido! 🎉</h1>
+    <p>Prepare-se para testar seus conhecimentos.</p>
+    <button id="start-btn" class="btn-primary">Começar</button>
+  </div>
+
+  <!-- Container do quiz -->
+  <div class="quiz-container hidden">
+    <h1 class="quiz-title">Quiz Divertido</h1>
+
+    <!-- Seleção de nível -->
+    <div id="start-screen" class="start-screen hidden">
+      <p class="subtitle">Escolha um nível para começar:</p>
+      <div class="difficulty-buttons">
+        <button class="btn difficulty-button easy" data-level="easy">Nível Fácil</button>
+        <button class="btn difficulty-button medium" data-level="medium">Nível Médio</button>
+        <button class="btn difficulty-button hard" data-level="hard">Nível Difícil</button>
+      </div>
     </div>
 
-    <!-- Container do quiz -->
-    <div class="quiz-container">
-        <h1>Quiz Divertido</h1>
-        
-        <div id="start-screen" class="hidden">
-            <p>Escolha um nível para começar:</p>
-            <button class="difficulty-button easy" data-level="easy">Nível Fácil</button>
-            <button class="difficulty-button medium" data-level="medium">Nível Médio</button>
-            <button class="difficulty-button hard" data-level="hard">Nível Difícil</button>
-        </div>
-
-        <div id="game-screen" class="hidden">
-            <div class="question-box">
-                <p id="question-text" class="question-text"></p>
-                <div id="options-container" class="options-container"></div>
-            </div>
-            <div class="score-box">
-                Pontuação: <span id="score">0</span>
-            </div>
-        </div>
-
-        <div id="end-screen" class="hidden">
-            <h2>Fim do Jogo!</h2>
-            <p>Sua pontuação final é: <span id="final-score">0</span></p>
-            <button class="difficulty-button easy" data-level="easy">Jogar Novamente (Fácil)</button>
-            <button class="difficulty-button medium" data-level="medium">Jogar Novamente (Médio)</button>
-            <button class="difficulty-button hard" data-level="hard">Jogar Novamente (Difícil)</button>
-        </div>
+    <!-- Perguntas -->
+    <div id="game-screen" class="game-screen hidden">
+      <div class="question-box">
+        <p id="question-text" class="question-text"></p>
+        <div id="options-container" class="options-container"></div>
+      </div>
+      <div class="score-box">
+        <span>Pontuação: </span><span id="score">0</span>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Tela final -->
+    <div id="end-screen" class="end-screen hidden">
+      <h2>🏁 Fim do Jogo! 🏁</h2>
+      <p>Sua pontuação final é: <span id="final-score">0</span></p>
+      <p>Quer jogar novamente? Escolha o nível:</p>
+      <div class="difficulty-buttons">
+        <button class="btn difficulty-button easy" data-level="easy">Fácil</button>
+        <button class="btn difficulty-button medium" data-level="medium">Médio</button>
+        <button class="btn difficulty-button hard" data-level="hard">Difícil</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
+
