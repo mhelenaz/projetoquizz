@@ -3,57 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiz Divertido</title>
+  <title>Quiz Interativo Colorido</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Tela de boas-vindas -->
-  <div id="welcome-screen" class="welcome-screen">
-    <h1>🎉 Bem-vindo ao Quiz Divertido! 🎉</h1>
-    <p>Prepare-se para testar seus conhecimentos.</p>
-    <button id="start-btn" class="btn-primary">Começar</button>
-  </div>
+  <div class="container">
 
-  <!-- Container do quiz -->
-  <div class="quiz-container hidden">
-    <h1 class="quiz-title">Quiz Divertido</h1>
+    <!-- Tela inicial -->
+    <section id="welcome-screen" class="screen active">
+      <h1>🎉 Bem-vindo ao Quiz Interativo!</h1>
+      <p>Teste seus conhecimentos escolhendo um nível.</p>
+      <button id="btn-start" class="btn btn-primary">Começar</button>
+    </section>
 
     <!-- Seleção de nível -->
-    <div id="start-screen" class="start-screen hidden">
-      <p class="subtitle">Escolha um nível para começar:</p>
-      <div class="difficulty-buttons">
-        <button class="btn difficulty-button easy" data-level="easy">Nível Fácil</button>
-        <button class="btn difficulty-button medium" data-level="medium">Nível Médio</button>
-        <button class="btn difficulty-button hard" data-level="hard">Nível Difícil</button>
+    <section id="level-selection" class="screen">
+      <h2>Escolha o nível do quiz</h2>
+      <div class="levels">
+        <button class="btn level-btn" data-level="easy">Fácil</button>
+        <button class="btn level-btn" data-level="medium">Médio</button>
+        <button class="btn level-btn" data-level="hard">Difícil</button>
       </div>
-    </div>
+    </section>
 
-    <!-- Perguntas -->
-    <div id="game-screen" class="game-screen hidden">
-      <div class="question-box">
-        <p id="question-text" class="question-text"></p>
-        <div id="options-container" class="options-container"></div>
+    <!-- Quiz -->
+    <section id="quiz-screen" class="screen">
+      <div class="quiz-header">
+        <h2 id="question-number">Pergunta 1</h2>
+        <div class="score-display">Pontuação: <span id="score">0</span></div>
       </div>
-      <div class="score-box">
-        <span>Pontuação: </span><span id="score">0</span>
-      </div>
-    </div>
+      <p id="question-text" class="question"></p>
+      <div id="options-container" class="options"></div>
+    </section>
 
     <!-- Tela final -->
-    <div id="end-screen" class="end-screen hidden">
-      <h2>🏁 Fim do Jogo! 🏁</h2>
+    <section id="end-screen" class="screen">
+      <h2>🎉 Parabéns! Você terminou o quiz.</h2>
       <p>Sua pontuação final é: <span id="final-score">0</span></p>
-      <p>Quer jogar novamente? Escolha o nível:</p>
-      <div class="difficulty-buttons">
-        <button class="btn difficulty-button easy" data-level="easy">Fácil</button>
-        <button class="btn difficulty-button medium" data-level="medium">Médio</button>
-        <button class="btn difficulty-button hard" data-level="hard">Difícil</button>
-      </div>
-    </div>
+      <button id="btn-restart" class="btn btn-primary">Jogar Novamente</button>
+    </section>
+
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-

@@ -1,125 +1,132 @@
-// Perguntas para os níveis fácil, médio e difícil
-const questionsEasy = [
-  { question: "Qual é a capital da França?", options: ["Berlim", "Madri", "Paris", "Roma"], answer: "Paris" },
-  { question: "Qual o maior planeta do nosso sistema solar?", options: ["Vênus", "Júpiter", "Marte", "Terra"], answer: "Júpiter" },
-  { question: "Quem pintou a Mona Lisa?", options: ["Van Gogh", "Picasso", "Da Vinci", "Michelangelo"], answer: "Da Vinci" },
-  { question: "Qual o animal mais rápido do mundo?", options: ["Leão", "Guepardo", "Falcão-peregrino", "Cavalo"], answer: "Falcão-peregrino" },
-  { question: "Qual é a capital do Japão?", options: ["Seul", "Pequim", "Bangkok", "Tóquio"], answer: "Tóquio" }
-];
+// Perguntas separadas por nível
+const questionsData = {
+  easy: [
+    { question: "Qual é a capital da França?", options: ["Berlim", "Paris", "Madrid", "Roma"], answer: "Paris" },
+    { question: "Qual o maior planeta do sistema solar?", options: ["Júpiter", "Marte", "Terra", "Saturno"], answer: "Júpiter" },
+    { question: "Quem pintou a Mona Lisa?", options: ["Van Gogh", "Picasso", "Da Vinci", "Michelangelo"], answer: "Da Vinci" },
+    { question: "Qual o animal mais rápido do mundo?", options: ["Leão", "Guepardo", "Falcão-peregrino", "Cavalo"], answer: "Falcão-peregrino" },
+    { question: "Qual é a capital do Japão?", options: ["Seul", "Pequim", "Bangkok", "Tóquio"], answer: "Tóquio" }
+  ],
 
-const questionsMedium = [
-  { question: "Qual é o rio mais longo do mundo?", options: ["Rio Nilo", "Rio Amazonas", "Rio Yangtze", "Rio Mississipi"], answer: "Rio Amazonas" },
-  { question: "Quem escreveu a obra 'O Pequeno Príncipe'?", options: ["Antoine de Saint-Exupéry", "Victor Hugo", "Lewis Carroll", "J.K. Rowling"], answer: "Antoine de Saint-Exupéry" },
-  { question: "Qual o nome da montanha mais alta do mundo?", options: ["Monte Everest", "K2", "Monte Kilimanjaro", "Monte Fuji"], answer: "Monte Everest" },
-  { question: "Quantos corações tem um polvo?", options: ["Um", "Dois", "Três", "Quatro"], answer: "Três" },
-  { question: "Em que ano a Revolução Francesa começou?", options: ["1789", "1776", "1815", "1914"], answer: "1789" }
-];
+  medium: [
+    { question: "Qual é o rio mais longo do mundo?", options: ["Nilo", "Amazonas", "Yangtze", "Mississipi"], answer: "Amazonas" },
+    { question: "Quem escreveu 'O Pequeno Príncipe'?", options: ["Saint-Exupéry", "Victor Hugo", "Lewis Carroll", "J.K. Rowling"], answer: "Saint-Exupéry" },
+    { question: "Qual a montanha mais alta do mundo?", options: ["Everest", "K2", "Kilimanjaro", "Fuji"], answer: "Everest" },
+    { question: "Quantos corações tem um polvo?", options: ["1", "2", "3", "4"], answer: "3" },
+    { question: "Em que ano começou a Revolução Francesa?", options: ["1789", "1776", "1815", "1914"], answer: "1789" }
+  ],
 
-const questionsHard = [
-  { question: "Quem formulou a Teoria da Relatividade Geral?", options: ["Isaac Newton", "Niels Bohr", "Albert Einstein", "Stephen Hawking"], answer: "Albert Einstein" },
-  { question: "Em que ano a Batalha de Hastings ocorreu?", options: ["1066", "1492", "1776", "1815"], answer: "1066" },
-  { question: "Qual é a massa atômica aproximada do Ouro (Au)?", options: ["197", "108", "79", "39"], answer: "197" },
-  { question: "Quem foi o líder da Revolução Haitiana?", options: ["Toussaint Louverture", "Jean-Jacques Dessalines", "François Duvalier", "Henri Christophe"], answer: "Toussaint Louverture" },
-  { question: "Qual o teorema matemático que afirma que 'a soma dos quadrados dos catetos é igual ao quadrado da hipotenusa'?", options: ["Teorema de Tales", "Teorema de Pitágoras", "Teorema de Fermat", "Teorema de Euclides"], answer: "Teorema de Pitágoras" }
-];
+  hard: [
+    { question: "Quem formulou a Teoria da Relatividade Geral?", options: ["Newton", "Niels Bohr", "Einstein", "Hawking"], answer: "Einstein" },
+    { question: "Em que ano ocorreu a Batalha de Hastings?", options: ["1066", "1492", "1776", "1815"], answer: "1066" },
+    { question: "Qual é a massa atômica aproximada do Ouro (Au)?", options: ["197", "108", "79", "39"], answer: "197" },
+    { question: "Quem liderou a Revolução Haitiana?", options: ["Louverture", "Dessalines", "Duvalier", "Christophe"], answer: "Louverture" },
+    { question: "Qual teorema afirma que 'a soma dos quadrados dos catetos é igual ao quadrado da hipotenusa'?", options: ["Tales", "Pitágoras", "Fermat", "Euclides"], answer: "Pitágoras" }
+  ]
+};
 
-let questions = [];
-let currentQuestionIndex = 0;
-let score = 0;
-
+// Elementos DOM
 const welcomeScreen = document.getElementById('welcome-screen');
-const startBtn = document.getElementById('start-btn');
-const quizContainer = document.querySelector('.quiz-container');
-
-const startScreen = document.getElementById('start-screen');
-const gameScreen = document.getElementById('game-screen');
+const levelSelection = document.getElementById('level-selection');
+const quizScreen = document.getElementById('quiz-screen');
 const endScreen = document.getElementById('end-screen');
 
+const btnStart = document.getElementById('btn-start');
+const levelButtons = document.querySelectorAll('.level-btn');
+const btnRestart = document.getElementById('btn-restart');
+
+const questionNumber = document.getElementById('question-number');
 const questionText = document.getElementById('question-text');
 const optionsContainer = document.getElementById('options-container');
 
-const scoreElement = document.getElementById('score');
-const finalScoreElement = document.getElementById('final-score');
+const scoreDisplay = document.getElementById('score');
+const finalScoreDisplay = document.getElementById('final-score');
 
-startBtn.addEventListener('click', () => {
-  welcomeScreen.classList.add('hidden');
-  quizContainer.classList.remove('hidden');
-  startScreen.classList.remove('hidden');
+let currentLevel = '';
+let currentQuestions = [];
+let currentIndex = 0;
+let score = 0;
+
+// Mostrar tela
+function showScreen(screen) {
+  [welcomeScreen, levelSelection, quizScreen, endScreen].forEach(s => s.classList.remove('active'));
+  screen.classList.add('active');
+}
+
+// Começar o jogo (após clicar Começar)
+btnStart.addEventListener('click', () => {
+  showScreen(levelSelection);
 });
 
-document.querySelectorAll('.difficulty-button').forEach(button => {
+// Escolher nível
+levelButtons.forEach(button => {
   button.addEventListener('click', () => {
-    startGame(button.dataset.level);
+    currentLevel = button.dataset.level;
+    currentQuestions = [...questionsData[currentLevel]];
+    currentIndex = 0;
+    score = 0;
+    scoreDisplay.textContent = score;
+    showScreen(quizScreen);
+    showQuestion();
   });
 });
 
-function startGame(level) {
-  switch (level) {
-    case 'easy':
-      questions = questionsEasy;
-      break;
-    case 'medium':
-      questions = questionsMedium;
-      break;
-    case 'hard':
-      questions = questionsHard;
-      break;
-  }
-  currentQuestionIndex = 0;
-  score = 0;
-  scoreElement.textContent = score;
-
-  startScreen.classList.add('hidden');
-  endScreen.classList.add('hidden');
-  gameScreen.classList.remove('hidden');
-
-  showQuestion();
-}
-
+// Mostrar pergunta atual e opções
 function showQuestion() {
-  const current = questions[currentQuestionIndex];
+  const current = currentQuestions[currentIndex];
+  questionNumber.textContent = `Pergunta ${currentIndex + 1} de ${currentQuestions.length}`;
   questionText.textContent = current.question;
 
   optionsContainer.innerHTML = '';
+
   current.options.forEach(option => {
     const btn = document.createElement('button');
+    btn.classList.add('option-btn');
     btn.textContent = option;
-    btn.classList.add('option-button');
-    btn.addEventListener('click', () => selectOption(option, current.answer, btn));
+    btn.disabled = false;
+    btn.addEventListener('click', () => selectOption(btn, option, current.answer));
+    btn.classList.add('btn'); // estilização
     optionsContainer.appendChild(btn);
   });
 }
 
-function selectOption(selectedOption, correctAnswer, selectedBtn) {
+// Selecionar opção e dar feedback
+function selectOption(button, selected, correct) {
   const buttons = optionsContainer.querySelectorAll('button');
+
   buttons.forEach(btn => btn.disabled = true);
 
-  if (selectedOption === correctAnswer) {
+  if (selected === correct) {
+    button.classList.add('correct');
     score++;
-    scoreElement.textContent = score;
-    selectedBtn.classList.add('correct');
+    scoreDisplay.textContent = score;
   } else {
-    selectedBtn.classList.add('incorrect');
+    button.classList.add('incorrect');
     buttons.forEach(btn => {
-      if (btn.textContent === correctAnswer) {
+      if (btn.textContent === correct) {
         btn.classList.add('correct');
       }
     });
   }
 
+  // Espera 1.5 segundos e mostra próxima ou finaliza
   setTimeout(() => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
+    currentIndex++;
+    if (currentIndex < currentQuestions.length) {
       showQuestion();
     } else {
-      finishGame();
+      finishQuiz();
     }
   }, 1500);
 }
 
-function finishGame() {
-  gameScreen.classList.add('hidden');
-  endScreen.classList.remove('hidden');
-  finalScoreElement.textContent = score;
+// Final do quiz
+function finishQuiz() {
+  finalScoreDisplay.textContent = score;
+  showScreen(endScreen);
 }
 
+// Reiniciar jogo
+btnRestart.addEventListener('click', () => {
+  showScreen(levelSelection);
+});
