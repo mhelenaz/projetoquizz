@@ -23,6 +23,72 @@ const questions = {
             answers: ["1965", "1969", "1972", "1959"],
             correctAnswer: "1969",
             level: "Difícil"
+        },
+        {
+            question: "Quem pintou a Mona Lisa?",
+            answers: ["Picasso", "Van Gogh", "Da Vinci", "Michelangelo"],
+            correctAnswer: "Da Vinci",
+            level: "Fácil"
+        },
+        {
+            question: "Qual o maior continente?",
+            answers: ["África", "América", "Ásia", "Europa"],
+            correctAnswer: "Ásia",
+            level: "Médio"
+        },
+        {
+            question: "Quem é o atual presidente dos Estados Unidos?",
+            answers: ["Barack Obama", "Donald Trump", "Joe Biden", "George Bush"],
+            correctAnswer: "Joe Biden",
+            level: "Fácil"
+        },
+        {
+            question: "Qual é o maior país do mundo em termos de área?",
+            answers: ["China", "Rússia", "Canadá", "Brasil"],
+            correctAnswer: "Rússia",
+            level: "Médio"
+        },
+        {
+            question: "Em qual continente o Egito está localizado?",
+            answers: ["África", "Ásia", "Europa", "América"],
+            correctAnswer: "África",
+            level: "Fácil"
+        },
+        {
+            question: "Quem descobriu a América?",
+            answers: ["Cristóvão Colombo", "Marco Polo", "Vasco da Gama", "Pedro Álvares Cabral"],
+            correctAnswer: "Cristóvão Colombo",
+            level: "Fácil"
+        },
+        {
+            question: "Qual é o nome do famoso muro na Alemanha?",
+            answers: ["Muro de Berlim", "Muro de Roma", "Muro de Paris", "Muro de Londres"],
+            correctAnswer: "Muro de Berlim",
+            level: "Médio"
+        },
+        {
+            question: "Em qual ano começou a Segunda Guerra Mundial?",
+            answers: ["1935", "1940", "1939", "1914"],
+            correctAnswer: "1939",
+            level: "Difícil"
+        },
+        {
+            question: "Qual é o nome da maior floresta tropical do mundo?",
+            answers: ["Floresta do Congo", "Floresta Amazônica", "Floresta de Borneo", "Floresta de Taiga"],
+            correctAnswer: "Floresta Amazônica",
+            level: "Fácil"
+        },
+        {
+            question: "Qual é o maior oceano do planeta?",
+            answers: ["Atlântico", "Índico", "Pacífico", "Ártico"],
+            correctAnswer: "Pacífico",
+            level: "Médio"
+        },
+        {
+            question: "Quantos estados tem o Brasil?",
+            answers: ["26", "27", "25", "28"],
+            correctAnswer: "26",
+            level: "Fácil"
         }
     ],
     "Ciência": [
@@ -33,98 +99,23 @@ const questions = {
             level: "Fácil"
         },
         {
+            question: "Quem é conhecido como o pai da física?",
+            answers: ["Isaac Newton", "Albert Einstein", "Galileu Galilei", "Nikola Tesla"],
+            correctAnswer: "Isaac Newton",
+            level: "Médio"
+        },
+        {
             question: "O que é a fotossíntese?",
             answers: ["Processo de respiração", "Conversão de luz em energia", "Transformação de energia térmica", "Conversão de água em vapor"],
             correctAnswer: "Conversão de luz em energia",
             level: "Médio"
         },
         {
+            question: "Qual a fórmula da água?",
+            answers: ["H2O", "O2", "CO2", "H2SO4"],
+            correctAnswer: "H2O",
+            level: "Fácil"
+        },
+        {
             question: "Qual é a fórmula da gravidade de Newton?",
-            answers: ["F = ma", "F = G(m1m2)/r^2", "E = mc²", "F = v²/r"],
-            correctAnswer: "F = G(m1m2)/r^2",
-            level: "Difícil"
-        }
-    ]
-};
-
-function startQuiz() {
-    document.getElementById("welcome-screen").style.display = "none";
-    document.getElementById("quiz-container").style.display = "block";
-    
-    theme = prompt("Escolha um tema: Geral, Ciência");
-    while (!questions[theme]) {
-        theme = prompt("Tema inválido. Escolha novamente: Geral, Ciência");
-    }
-
-    level = prompt("Escolha o nível: Fácil, Médio, Difícil");
-    level = level.charAt(0).toUpperCase() + level.slice(1);
-
-    currentQuestionIndex = 0;
-    score = 0;
-    displayQuestion();
-}
-
-function displayQuestion() {
-    const currentQuestion = questions[theme].filter(q => q.level === level)[currentQuestionIndex];
-    
-    if (!currentQuestion) {
-        endQuiz();
-        return;
-    }
-
-    document.getElementById("question").innerText = currentQuestion.question;
-    const answersElement = document.getElementById("answers");
-    answersElement.innerHTML = '';
-
-    currentQuestion.answers.forEach(answer => {
-        const button = document.createElement('button');
-        button.innerText = answer;
-        button.onclick = () => checkAnswer(answer);
-        answersElement.appendChild(button);
-    });
-
-    document.getElementById("next-button").style.display = 'none';
-}
-
-function checkAnswer(selectedAnswer) {
-    const currentQuestion = questions[theme].filter(q => q.level === level)[currentQuestionIndex];
-
-    if (selectedAnswer === currentQuestion.correctAnswer) {
-        score += 10;
-    }
-
-    document.getElementById("score").innerText = `Pontuação: ${score}`;
-    document.getElementById("level").innerText = `Nível: ${level}`;
-    document.getElementById("theme").innerText = `Tema: ${theme}`;
-    
-    document.getElementById("next-button").style.display = 'block';
-}
-
-function nextQuestion() {
-    currentQuestionIndex++;
-    displayQuestion();
-}
-
-function endQuiz() {
-    const playerName = prompt("Digite seu nome para o ranking:");
-    ranking.push({ name: playerName, score: score });
-    ranking = ranking.sort((a, b) => b.score - a.score);
-    
-    localStorage.setItem('ranking', JSON.stringify(ranking));
-    
-    document.getElementById("quiz-container").style.display = "none";
-    document.getElementById("ranking-screen").style.display = "block";
-    
-    const rankingList = document.getElementById("ranking-list");
-    rankingList.innerHTML = '';
-    ranking.slice(0, 5).forEach((entry, index) => {
-        const div = document.createElement('div');
-        div.innerText = `${index + 1}. ${entry.name} - ${entry.score} pontos`;
-        rankingList.appendChild(div);
-    });
-}
-
-function restartQuiz() {
-    document.getElementById("ranking-screen").style.display = "none";
-    document.getElementById("welcome-screen").style.display = "block";
-}
+            answers: ["F = ma", "F = G(m1m2)/r^2",
