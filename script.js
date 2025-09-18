@@ -1,7 +1,7 @@
 let score = 0;
 let currentQuestionIndex = 0;
 let theme = '';
-let level = 'Fácil';
+let level = '';
 let ranking = JSON.parse(localStorage.getItem('ranking')) || [];
 
 const questions = {
@@ -13,9 +13,9 @@ const questions = {
             level: "Fácil"
         },
         {
-            question: "Quem escreveu 'Dom Quixote'?",
-            answers: ["Shakespeare", "Cervantes", "Dante", "Goethe"],
-            correctAnswer: "Cervantes",
+            question: "Quem pintou a Mona Lisa?",
+            answers: ["Picasso", "Van Gogh", "Da Vinci", "Michelangelo"],
+            correctAnswer: "Da Vinci",
             level: "Médio"
         },
         {
@@ -23,72 +23,6 @@ const questions = {
             answers: ["1965", "1969", "1972", "1959"],
             correctAnswer: "1969",
             level: "Difícil"
-        },
-        {
-            question: "Quem pintou a Mona Lisa?",
-            answers: ["Picasso", "Van Gogh", "Da Vinci", "Michelangelo"],
-            correctAnswer: "Da Vinci",
-            level: "Fácil"
-        },
-        {
-            question: "Qual o maior continente?",
-            answers: ["África", "América", "Ásia", "Europa"],
-            correctAnswer: "Ásia",
-            level: "Médio"
-        },
-        {
-            question: "Quem é o atual presidente dos Estados Unidos?",
-            answers: ["Barack Obama", "Donald Trump", "Joe Biden", "George Bush"],
-            correctAnswer: "Joe Biden",
-            level: "Fácil"
-        },
-        {
-            question: "Qual é o maior país do mundo em termos de área?",
-            answers: ["China", "Rússia", "Canadá", "Brasil"],
-            correctAnswer: "Rússia",
-            level: "Médio"
-        },
-        {
-            question: "Em qual continente o Egito está localizado?",
-            answers: ["África", "Ásia", "Europa", "América"],
-            correctAnswer: "África",
-            level: "Fácil"
-        },
-        {
-            question: "Quem descobriu a América?",
-            answers: ["Cristóvão Colombo", "Marco Polo", "Vasco da Gama", "Pedro Álvares Cabral"],
-            correctAnswer: "Cristóvão Colombo",
-            level: "Fácil"
-        },
-        {
-            question: "Qual é o nome do famoso muro na Alemanha?",
-            answers: ["Muro de Berlim", "Muro de Roma", "Muro de Paris", "Muro de Londres"],
-            correctAnswer: "Muro de Berlim",
-            level: "Médio"
-        },
-        {
-            question: "Em qual ano começou a Segunda Guerra Mundial?",
-            answers: ["1935", "1940", "1939", "1914"],
-            correctAnswer: "1939",
-            level: "Difícil"
-        },
-        {
-            question: "Qual é o nome da maior floresta tropical do mundo?",
-            answers: ["Floresta do Congo", "Floresta Amazônica", "Floresta de Borneo", "Floresta de Taiga"],
-            correctAnswer: "Floresta Amazônica",
-            level: "Fácil"
-        },
-        {
-            question: "Qual é o maior oceano do planeta?",
-            answers: ["Atlântico", "Índico", "Pacífico", "Ártico"],
-            correctAnswer: "Pacífico",
-            level: "Médio"
-        },
-        {
-            question: "Quantos estados tem o Brasil?",
-            answers: ["26", "27", "25", "28"],
-            correctAnswer: "26",
-            level: "Fácil"
         }
     ],
     "Ciência": [
@@ -99,23 +33,81 @@ const questions = {
             level: "Fácil"
         },
         {
-            question: "Quem é conhecido como o pai da física?",
+            question: "Quem é conhecido como o pai da física moderna?",
             answers: ["Isaac Newton", "Albert Einstein", "Galileu Galilei", "Nikola Tesla"],
-            correctAnswer: "Isaac Newton",
+            correctAnswer: "Albert Einstein",
             level: "Médio"
         },
         {
             question: "O que é a fotossíntese?",
             answers: ["Processo de respiração", "Conversão de luz em energia", "Transformação de energia térmica", "Conversão de água em vapor"],
             correctAnswer: "Conversão de luz em energia",
-            level: "Médio"
-        },
+            level: "Difícil"
+        }
+    ],
+    "Geografia": [
         {
-            question: "Qual a fórmula da água?",
-            answers: ["H2O", "O2", "CO2", "H2SO4"],
-            correctAnswer: "H2O",
+            question: "Qual é o maior continente?",
+            answers: ["África", "América", "Ásia", "Europa"],
+            correctAnswer: "Ásia",
             level: "Fácil"
         },
         {
-            question: "Qual é a fórmula da gravidade de Newton?",
-            answers: ["F = ma", "F = G(m1m2)/r^2",
+            question: "Quantos estados tem o Brasil?",
+            answers: ["26", "27", "25", "28"],
+            correctAnswer: "26",
+            level: "Médio"
+        },
+        {
+            question: "Qual é o maior país do mundo em termos de área?",
+            answers: ["China", "Rússia", "Canadá", "Brasil"],
+            correctAnswer: "Rússia",
+            level: "Difícil"
+        }
+    ]
+};
+
+function showThemeSelection() {
+    document.getElementById("welcome-screen").style.display = "none";
+    document.getElementById("theme-screen").style.display = "block";
+}
+
+function startQuiz() {
+    theme = document.getElementById("theme-select").value;
+    level = document.getElementById("level-select").value;
+    
+    document.getElementById("theme-text").innerText = theme;
+    document.getElementById("level-text").innerText = level;
+    
+    document.getElementById("theme-screen").style.display = "none";
+    document.getElementById("quiz-container").style.display = "block";
+    
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+}
+
+function showQuestion() {
+    const currentQuestions = questions[theme].filter(q => q.level === level);
+    const currentQuestion = currentQuestions[currentQuestionIndex];
+
+    if (!currentQuestion) {
+        endQuiz();
+        return;
+    }
+
+    document.getElementById("question").innerText = currentQuestion.question;
+    const answersElement = document.getElementById("answers");
+    answersElement.innerHTML = '';
+
+    currentQuestion.answers.forEach(answer => {
+        const button = document.createElement('button');
+        button.innerText = answer;
+        button.onclick = () => checkAnswer(answer);
+        answersElement.appendChild(button);
+    });
+
+    document.getElementById("next-button").style.display = 'none';
+}
+
+function checkAnswer(selected

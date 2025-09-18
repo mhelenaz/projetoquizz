@@ -10,8 +10,28 @@
     <!-- Tela de Boas-Vindas -->
     <div id="welcome-screen" class="screen">
         <h1>Bem-vindo ao Quiz!</h1>
-        <p>Teste seus conhecimentos com perguntas aleatórias e descubra sua pontuação!</p>
-        <button id="start-button" onclick="startQuiz()">Começar</button>
+        <p>Escolha um tema, o nível de dificuldade e comece o desafio!</p>
+        <button id="start-button" onclick="showThemeSelection()">Começar</button>
+    </div>
+
+    <!-- Tela de Seleção de Tema e Nível -->
+    <div id="theme-screen" class="screen" style="display:none;">
+        <h1>Escolha um Tema e Nível</h1>
+        <label for="theme-select">Tema:</label>
+        <select id="theme-select">
+            <option value="Geral">Geral</option>
+            <option value="Ciência">Ciência</option>
+            <option value="Geografia">Geografia</option>
+        </select>
+        <br>
+        <label for="level-select">Nível:</label>
+        <select id="level-select">
+            <option value="Fácil">Fácil</option>
+            <option value="Médio">Médio</option>
+            <option value="Difícil">Difícil</option>
+        </select>
+        <br><br>
+        <button id="start-quiz-button" onclick="startQuiz()">Iniciar Quiz</button>
     </div>
 
     <!-- Tela do Quiz -->
@@ -21,8 +41,8 @@
         <div id="answers"></div>
         <button id="next-button" onclick="nextQuestion()" style="display:none;">Próxima Pergunta</button>
         <p id="score">Pontuação: 0</p>
-        <p id="level">Nível: Fácil</p>
-        <p id="theme">Tema: Nenhum</p>
+        <p id="level">Nível: <span id="level-text"></span></p>
+        <p id="theme">Tema: <span id="theme-text"></span></p>
     </div>
 
     <!-- Tela de Ranking -->
