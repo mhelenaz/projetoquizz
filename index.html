@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz com Ranking</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interativo</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Tela de Boas-Vindas -->
-  <div id="welcome-screen" class="screen">
-    <h1>Bem-vindo ao Quiz!</h1>
-    <p>Escolha um tema e comece o quiz.</p>
-    <button onclick="startQuiz()">Iniciar Quiz</button>
-  </div>
+    <!-- Tela de Boas-vindas -->
+    <div id="welcome-screen" class="screen">
+        <h1>Bem-vindo ao Quiz!</h1>
+        <p>Teste seus conhecimentos com perguntas aleatórias e descubra sua pontuação!</p>
+        <button id="start-button" onclick="startQuiz()">Começar</button>
+    </div>
 
-  <!-- Tela do Quiz -->
-  <div id="quiz-container" class="screen" style="display:none;">
-    <h1>Quiz</h1>
-    <p id="question">Carregando...</p>
-    <div id="answers"></div>
-    <button id="next-button" onclick="nextQuestion()" style="display:none;">Próxima Pergunta</button>
-    <p id="score">Pontuação: 0</p>
-    <p id="level">Nível: Fácil</p>
-    <p id="theme">Tema: Nenhum</p>
-  </div>
+    <!-- Tela do Quiz -->
+    <div id="quiz-container" class="screen" style="display:none;">
+        <h1>Quiz</h1>
+        <p id="question">Carregando...</p>
+        <div id="answers"></div>
+        <button id="next-button" onclick="nextQuestion()" style="display:none;">Próxima Pergunta</button>
+        <p id="score">Pontuação: 0</p>
+        <p id="level">Nível: Fácil</p>
+        <p id="theme">Tema: Nenhum</p>
+    </div>
 
-  <!-- Tela de Ranking -->
-  <div id="ranking-screen" class="screen" style="display:none;">
-    <h1>Ranking</h1>
-    <div id="ranking-list"></div>
-    <button onclick="restartQuiz()">Reiniciar</button>
-  </div>
+    <!-- Tela de Ranking -->
+    <div id="ranking-screen" class="screen" style="display:none;">
+        <h1>Ranking</h1>
+        <div id="ranking-list"></div>
+        <button onclick="restartQuiz()">Reiniciar</button>
+    </div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
