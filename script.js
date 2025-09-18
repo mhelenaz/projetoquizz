@@ -175,6 +175,7 @@ function resetGame() {
 
 // Event Listeners
 startButton.addEventListener('click', () => {
+    // Altera a visibilidade das telas
     welcomeScreen.classList.add('hidden');
     quizScreen.classList.remove('hidden');
     selectQuestions();
