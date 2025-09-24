@@ -114,7 +114,7 @@ const questions = {
     }
 };
 
-let questionsList; // Variável que armazenará a lista de perguntas do nível e tema escolhidos
+let questionsList;
 let currentQuestionIndex = 0;
 let score = 0;
 let selectedTheme = '';
@@ -137,7 +137,7 @@ function showThemeScreen() {
     themeScreen.classList.remove('hidden');
 }
 
-// Função para mostrar a tela de seleção de nível
+// Função para mostrar a tela de seleção de nível, após o tema ser escolhido
 function showDifficultyScreen(theme) {
     selectedTheme = theme;
     themeScreen.classList.add('hidden');
