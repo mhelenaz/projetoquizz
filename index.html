@@ -1,55 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiziz - Quiz Interativo</title>
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiziz Profissional</title>
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container" id="welcome-screen">
-    <h1>Bem-vindo ao Quiziz!</h1>
-    <p>Escolha um tema e nível para começar o quiz.</p>
 
-    <label for="theme-select">Tema:</label>
-    <select id="theme-select">
-      <option value="geografia">Geografia</option>
-      <option value="historia">História</option>
-      <option value="ciencia">Ciência</option>
-    </select>
+  <main class="app-container">
 
-    <label for="level-select">Nível:</label>
-    <select id="level-select">
-      <option value="facil">Fácil</option>
-      <option value="medio">Médio</option>
-      <option value="dificil">Difícil</option>
-    </select>
+    <!-- Tela de boas-vindas -->
+    <section id="welcome-screen" class="screen active">
+      <h1>Quiziz</h1>
+      <p>Teste seus conhecimentos! Escolha um tema e nível para começar.</p>
+      <div class="form-group">
+        <label for="theme-select">Tema</label>
+        <select id="theme-select">
+          <option value="geografia">Geografia</option>
+          <option value="historia">História</option>
+          <option value="ciencia">Ciência</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="level-select">Nível</label>
+        <select id="level-select">
+          <option value="facil">Fácil</option>
+          <option value="medio">Médio</option>
+          <option value="dificil">Difícil</option>
+        </select>
+      </div>
+      <button id="start-btn" class="btn-primary">Começar Quiz</button>
+    </section>
 
-    <button id="start-btn">Iniciar Quiz</button>
-  </div>
+    <!-- Tela do quiz -->
+    <section id="quiz-screen" class="screen">
+      <header>
+        <h2 id="quiz-title">Quiz</h2>
+        <div id="score-display">Pontuação: 0</div>
+      </header>
+      <article id="question-container">
+        <h3 id="question-text">Pergunta</h3>
+        <div id="answers-container" class="answers"></div>
+      </article>
+      <footer>
+        <button id="next-btn" class="btn-secondary" disabled>Próxima</button>
+      </footer>
+    </section>
 
-  <div class="container" id="quiz-screen" style="display:none;">
-    <h2 id="quiz-theme-level"></h2>
-    <div id="question-container">
-      <h3 id="question-text"></h3>
-      <div class="answers" id="answers-container"></div>
-    </div>
-    <div class="score" id="current-score">Pontuação: 0</div>
-  </div>
+    <!-- Tela de resultados -->
+    <section id="result-screen" class="screen">
+      <h2>Parabéns!</h2>
+      <p id="final-score-text"></p>
+      <h3>Ranking - <span id="ranking-title"></span></h3>
+      <ol id="ranking-list" class="ranking-list"></ol>
+      <button id="restart-btn" class="btn-primary">Jogar Novamente</button>
+    </section>
 
-  <div class="container" id="result-screen" style="display:none;">
-    <h2>Quiz Finalizado!</h2>
-    <p id="final-score-text"></p>
-
-    <h3>Ranking - <span id="ranking-theme-level"></span></h3>
-    <ul class="ranking-list" id="ranking-list"></ul>
-
-    <button id="restart-btn">Jogar Novamente</button>
-  </div>
-
-  <footer>
-    Desenvolvido por Você | Projeto Quiziz
-  </footer>
+  </main>
 
   <script src="script.js"></script>
 </body>

@@ -1,85 +1,204 @@
-/* CSS básico e organizado */
+/* Reset básico */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #4a90e2, #9013fe);
   color: #fff;
-  margin: 0;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
 }
-h1, h2, h3 {
-  margin: 10px 0;
-  text-align: center;
+
+.app-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  width: 100%;
+  max-width: 600px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-button {
-  background-color: #ff6f91;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 25px;
+
+/* Esconder telas inativas */
+.screen {
+  display: none;
+}
+.screen.active {
+  display: block;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+h1, h2, h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+}
+
+p {
+  text-align: center;
+  margin-bottom: 25px;
   font-size: 1.1rem;
-  color: #fff;
+  color: #eee;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+select {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
-  margin: 10px 5px;
+  font-weight: 600;
+  background-color: #2c2c54;
+  color: #fff;
   transition: background-color 0.3s ease;
 }
-button:hover {
-  background-color: #ff4a6e;
+select:hover, select:focus {
+  background-color: #3a3a75;
+  outline: none;
 }
-.container {
-  max-width: 700px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.1);
+
+.btn-primary, .btn-secondary {
+  padding: 12px 25px;
+  border: none;
   border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  text-align: center;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  display: block;
+  margin: 0 auto;
+  min-width: 180px;
 }
+
+.btn-primary {
+  background: #ff416c;
+  background: linear-gradient(90deg, #ff4b2b, #ff416c);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(255,65,108,0.5);
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ff1a00, #ff2f6b);
+  box-shadow: 0 6px 20px rgba(255, 26, 0, 0.7);
+}
+
+.btn-secondary {
+  background: #2f80ed;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(47, 128, 237, 0.5);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: #1c5bbf;
+  box-shadow: 0 6px 20px rgba(28, 91, 191, 0.7);
+}
+.btn-secondary:disabled {
+  background: #888;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Quiz */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#question-text {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
 .answers {
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+  gap: 15px;
 }
+
 .answers button {
-  margin: 8px 0;
-  font-size: 1rem;
-}
-select {
-  padding: 8px 12px;
-  border-radius: 6px;
+  background-color: #3a3a75;
   border: none;
-  font-size: 1rem;
-  margin: 10px;
+  border-radius: 10px;
+  padding: 14px 20px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
   cursor: pointer;
-}
-.score {
-  font-size: 1.4rem;
-  margin: 20px 0;
-}
-.ranking-list {
-  max-height: 200px;
-  overflow-y: auto;
   text-align: left;
-  margin: 15px auto;
-  background: rgba(255,255,255,0.15);
-  border-radius: 8px;
-  padding: 10px;
+  transition: background-color 0.3s ease;
+  user-select: none;
 }
-.ranking-list li {
-  padding: 6px 4px;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+.answers button:hover:not(:disabled) {
+  background-color: #5252a4;
 }
-.ranking-list li:last-child {
-  border-bottom: none;
+.answers button.correct {
+  background-color: #2ecc71 !important;
+  cursor: default;
 }
-footer {
-  margin-top: 30px;
-  font-size: 0.9rem;
-  color: #ddd;
+.answers button.incorrect {
+  background-color: #e74c3c !important;
+  cursor: default;
+}
+.answers button:disabled {
+  cursor: default;
+}
+
+/* Ranking */
+.ranking-list {
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 15px 25px;
+  max-height: 220px;
+  overflow-y: auto;
+  list-style-position: inside;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #eee;
+}
+
+.ranking-list li + li {
+  margin-top: 10px;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 20px 15px;
+  }
+  .btn-primary, .btn-secondary {
+    min-width: 100%;
+  }
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
