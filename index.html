@@ -18,10 +18,17 @@
 
         <div id="theme-screen" class="hidden">
             <p>Escolha um tema:</p>
-            <button class="theme-button portugues" onclick="startGame('portugues')">Português</button>
-            <button class="theme-button matematica" onclick="startGame('matematica')">Matemática</button>
-            <button class="theme-button historia" onclick="startGame('historia')">História</button>
-            <button class="theme-button ciencias" onclick="startGame('ciencias')">Ciências</button>
+            <button class="theme-button portugues" onclick="showDifficultyScreen('portugues')">Português</button>
+            <button class="theme-button matematica" onclick="showDifficultyScreen('matematica')">Matemática</button>
+            <button class="theme-button historia" onclick="showDifficultyScreen('historia')">História</button>
+            <button class="theme-button ciencias" onclick="showDifficultyScreen('ciencias')">Ciências</button>
+        </div>
+
+        <div id="difficulty-screen" class="hidden">
+            <p>Escolha um nível:</p>
+            <button class="difficulty-button easy" onclick="startGame('easy')">Fácil</button>
+            <button class="difficulty-button medium" onclick="startGame('medium')">Médio</button>
+            <button class="difficulty-button hard" onclick="startGame('hard')">Difícil</button>
         </div>
 
         <div id="game-screen" class="hidden">
@@ -38,7 +45,7 @@
         <div id="end-screen" class="hidden">
             <h2>Fim do Jogo!</h2>
             <p>Sua pontuação final é: <span id="final-score">0</span></p>
-            <button class="theme-button" id="play-again-button">Jogar Novamente</button>
+            <button class="play-again-button" onclick="showThemeScreen()">Jogar Novamente</button>
         </div>
     </div>
 
