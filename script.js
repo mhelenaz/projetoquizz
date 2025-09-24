@@ -1,6 +1,4 @@
-// === Banco de perguntas (20 por tema e nível) ===
-// Para economizar espaço, aqui eu uso 3 perguntas por nível como exemplo.
-// Pode duplicar/modificar para completar 20 reais depois.
+// --- Dados simplificados (3 perguntas p/ exemplo) ---
 const QUESTIONS = {
   geografia: {
     facil: [
@@ -43,149 +41,195 @@ const QUESTIONS = {
       {q:"Qual é o maior órgão do corpo humano?", options:["Coração", "Fígado", "Pele", "Pulmão"], a:"Pele"},
     ],
     medio: [
-      {q:"Símbolo químico do ouro?", options:["Au", "Ag", "Pb", "Fe"], a:"Au"},
-      {q:"Quem desenvolveu a teoria da relatividade?", options:["Einstein", "Newton", "Galileu", "Tesla"], a:"Einstein"},
-      {q:"Velocidade da luz em km/s?", options:["300.000", "150.000", "299.792", "350.000"], a:"299.792"},
+      {q:"Velocidade da luz (aprox.) em km/s?", options:["300000", "150000", "100000", "299792"], a:"299792"},
+      {q:"Quem formulou a teoria da relatividade?", options:["Newton", "Einstein", "Galileu", "Tesla"], a:"Einstein"},
+      {q:"Unidade de medida de corrente elétrica?", options:["Volt", "Ampere", "Ohm", "Watt"], a:"Ampere"},
     ],
     dificil: [
-      {q:"Fórmula química da cafeína?", options:["C8H10N4O2", "C6H12O6", "H2O", "NaCl"], a:"C8H10N4O2"},
-      {q:"Entomologia estuda?", options:["Insetos", "Estrelas", "Plantas", "Fungos"], a:"Insetos"},
-      {q:"Elemento com número atômico 79?", options:["Ouro", "Prata", "Chumbo", "Ferro"], a:"Ouro"},
+      {q:"Fórmula química da água?", options:["H2O", "CO2", "O2", "NaCl"], a:"H2O"},
+      {q:"O que é a fotossíntese?", options:["Processo de plantas fazerem comida", "Respiração animal", "Decomposição", "Combustão"], a:"Processo de plantas fazerem comida"},
+      {q:"Partícula subatômica com carga negativa?", options:["Próton", "Elétron", "Nêutron", "Fóton"], a:"Elétron"},
     ]
   }
 };
 
-// --- Variáveis do estado do quiz ---
-let currentTheme = null;
-let currentLevel = null;
+// Variáveis globais
+let currentTheme = '';
+let currentLevel = '';
 let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
-let answered = false;
 
-// --- Elementos DOM ---
 const welcomeScreen = document.getElementById('welcome-screen');
+const chooseScreen = document.getElementById('choose-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('result-screen');
+
+const btnGoToChoose = document.getElementById('btn-go-to-choose');
+const btnStartQuiz = document.getElementById('btn-start-quiz');
+const btnBackWelcome = document.getElementById('btn-back-welcome');
+const btnNext = document.getElementById('next-btn');
+const restartBtn = document.getElementById('restart-btn');
 
 const themeSelect = document.getElementById('theme-select');
 const levelSelect = document.getElementById('level-select');
 
-const startBtn = document.getElementById('start-btn');
-const restartBtn = document.getElementById('restart-btn');
-const nextBtn = document.getElementById('next-btn');
-
 const quizTitle = document.getElementById('quiz-title');
-const scoreDisplay = document.getElementById('score-display');
-
 const questionText = document.getElementById('question-text');
 const answersContainer = document.getElementById('answers-container');
+const scoreDisplay = document.getElementById('score-display');
 
 const finalScoreText = document.getElementById('final-score-text');
 const rankingTitle = document.getElementById('ranking-title');
 const rankingList = document.getElementById('ranking-list');
 
-// --- Funções ---
-// Função para embaralhar array
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
+// Função pra mostrar uma tela e esconder as outras
+function showScreen(screen){
+  [welcomeScreen, chooseScreen, quizScreen, resultScreen].forEach(s => s.classList.remove('active'));
+  screen.classList.add('active');
 }
 
-// Iniciar quiz
-startBtn.addEventListener('click', () => {
-  currentTheme = themeSelect.value;
-  currentLevel = levelSelect.value;
-
-  questions = shuffle([...QUESTIONS[currentTheme][currentLevel]]);
-  currentQuestionIndex = 0;
-  score = 0;
-  answered = false;
-
-  welcomeScreen.classList.remove('active');
-  resultScreen.classList.remove('active');
-  quizScreen.classList.add('active');
-
-  quizTitle.textContent = `Tema: ${capitalize(currentTheme)} | Nível: ${capitalize(currentLevel)}`;
-  scoreDisplay.textContent = `Pontuação: ${score}`;
-  showQuestion();
-  nextBtn.disabled = true;
+// Evento botão começar
+btnGoToChoose.addEventListener('click', () => {
+  showScreen(chooseScreen);
 });
 
-// Mostrar pergunta atual
-function showQuestion() {
-  answered = false;
-  nextBtn.disabled = true;
+// Evento botão voltar para boas-vindas
+btnBackWelcome.addEventListener('click', () => {
+  showScreen(welcomeScreen);
+});
 
-  const q = questions[currentQuestionIndex];
-  questionText.textContent = q.q;
-  answersContainer.innerHTML = '';
+// Evento iniciar quiz
+btnStartQuiz.addEventListener('click', () => {
+  currentTheme = themeSelect.value;
+  currentLevel = levelSelect.value;
+  questions = [...QUESTIONS[currentTheme][currentLevel]]; // clone array
+  shuffleArray(questions);
 
-  const options = shuffle([...q.options]);
-  options.forEach(opt => {
+  currentQuestionIndex = 0;
+  score = 0;
+  scoreDisplay.textContent = `Pontuação: ${score}`;
+  quizTitle.textContent = `Tema: ${capitalize(currentTheme)} | Nível: ${capitalize(currentLevel)}`;
+
+  showScreen(quizScreen);
+  showQuestion();
+  btnNext.disabled = true;
+});
+
+// Função para mostrar a pergunta atual
+function showQuestion(){
+  clearAnswers();
+  const currentQ = questions[currentQuestionIndex];
+  questionText.textContent = currentQ.q;
+
+  currentQ.options.forEach(option => {
     const btn = document.createElement('button');
     btn.classList.add('answer-btn');
-    btn.textContent = opt;
-    btn.onclick = () => selectAnswer(btn, q.a);
+    btn.textContent = option;
+    btn.addEventListener('click', () => selectAnswer(btn, currentQ.a));
     answersContainer.appendChild(btn);
   });
 }
 
-// Selecionar resposta
-function selectAnswer(button, correctAnswer) {
-  if (answered) return; // evita múltiplos cliques
-  answered = true;
+// Limpar respostas anteriores
+function clearAnswers(){
+  answersContainer.innerHTML = '';
+  btnNext.disabled = true;
+}
 
+// Quando o usuário seleciona uma resposta
+function selectAnswer(button, correctAnswer){
   const buttons = answersContainer.querySelectorAll('button');
   buttons.forEach(btn => {
     btn.disabled = true;
     if(btn.textContent === correctAnswer){
       btn.classList.add('correct');
+    } else {
+      btn.classList.remove('correct');
     }
   });
 
   if(button.textContent === correctAnswer){
     score += 10;
+    scoreDisplay.textContent = `Pontuação: ${score}`;
     button.classList.add('correct');
   } else {
     button.classList.add('incorrect');
   }
 
-  scoreDisplay.textContent = `Pontuação: ${score}`;
-  nextBtn.disabled = false;
+  btnNext.disabled = false;
 }
 
-// Avançar para próxima pergunta ou terminar quiz
-nextBtn.addEventListener('click', () => {
+// Próxima pergunta ou fim do quiz
+btnNext.addEventListener('click', () => {
   currentQuestionIndex++;
-  if(currentQuestionIndex >= questions.length){
-    endQuiz();
-  } else {
+  if(currentQuestionIndex < questions.length){
     showQuestion();
+  } else {
+    finishQuiz();
   }
 });
 
-// Finalizar quiz
-function endQuiz(){
-  quizScreen.classList.remove('active');
-  resultScreen.classList.add('active');
+// Finalizar quiz e mostrar resultados + ranking
+function finishQuiz(){
+  // Salvar pontuação no ranking
+  saveRanking(currentTheme, currentLevel, score);
 
-  finalScoreText.textContent = `Você fez ${score} pontos no tema ${capitalize(currentTheme)} (${capitalize(currentLevel)}).`;
+  finalScoreText.textContent = `Sua pontuação final foi: ${score} pontos.`;
   rankingTitle.textContent = `${capitalize(currentTheme)} - ${capitalize(currentLevel)}`;
 
-  saveRanking(currentTheme, currentLevel, score);
   displayRanking(currentTheme, currentLevel);
+
+  showScreen(resultScreen);
 }
 
-// Salvar ranking no localStorage (top 10)
+// Reiniciar o jogo
+restartBtn.addEventListener('click', () => {
+  showScreen(welcomeScreen);
+});
+
+// Função para salvar ranking no localStorage
 function saveRanking(theme, level, score){
   const key = `ranking_${theme}_${level}`;
   let ranking = JSON.parse(localStorage.getItem(key)) || [];
+  const now = new Date().toLocaleDateString();
 
-  ranking.push({score, date: new Date().toLocaleString()});
+  ranking.push({score, date: now});
+  // Ordenar decrescente por score
   ranking.sort((a,b) => b.score - a.score);
+  // Manter só top 10
   ranking = ranking.slice(0, 10);
 
   localStorage.setItem(key, JSON.stringify(ranking));
 }
 
-// Exibir ranking na
+// Mostrar ranking salvo
+function displayRanking(theme, level){
+  const key = `ranking_${theme}_${level}`;
+  let ranking = JSON.parse(localStorage.getItem(key)) || [];
+  rankingList.innerHTML = '';
+
+  if(ranking.length === 0){
+    rankingList.innerHTML = '<li>Sem resultados ainda.</li>';
+    return;
+  }
+
+  ranking.forEach((entry, idx) => {
+    const li = document.createElement('li');
+    li.textContent = `${idx + 1}. ${entry.score} pontos - ${entry.date}`;
+    rankingList.appendChild(li);
+  });
+}
+
+// Util - Embaralhar array (Fisher-Yates)
+function shuffleArray(array){
+  for(let i = array.length -1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// Util - Capitalizar primeira letra
+function capitalize(text){
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
