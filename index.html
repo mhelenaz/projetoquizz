@@ -1,74 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quiziz Profissional</title>
-<link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Divertido</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="app-container">
+    <div class="quiz-container">
+        <h1>Quiz Divertido</h1>
+        
+        <div id="welcome-screen">
+            <p>Bem-vindo ao Quiz Divertido!</p>
+            <p>Teste seus conhecimentos em três níveis de dificuldade.</p>
+            <button class="start-button" onclick="showDifficultyScreen()">Começar</button>
+        </div>
 
-    <!-- Tela 1: Boas-vindas -->
-    <section id="welcome-screen" class="screen active">
-      <h1>Quiziz</h1>
-      <p>Bem-vindo! Prepare-se para testar seus conhecimentos.</p>
-      <button id="btn-go-to-choose" class="btn-primary">Começar</button>
-    </section>
+        <div id="difficulty-screen" class="hidden">
+            <p>Escolha um nível para começar:</p>
+            <button class="difficulty-button easy" onclick="startGame('easy')">Nível Fácil</button>
+            <button class="difficulty-button medium" onclick="startGame('medium')">Nível Médio</button>
+            <button class="difficulty-button hard" onclick="startGame('hard')">Nível Difícil</button>
+        </div>
 
-    <!-- Tela 2: Escolha tema e nível -->
-    <section id="choose-screen" class="screen">
-      <h2>Escolha o tema e o nível</h2>
-      <div class="form-group">
-        <label for="theme-select">Tema</label>
-        <select id="theme-select">
-          <option value="" disabled selected>Selecione o tema</option>
-          <option value="geografia">Geografia</option>
-          <option value="historia">História</option>
-          <option value="ciencia">Ciência</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="level-select">Nível</label>
-        <select id="level-select">
-          <option value="" disabled selected>Selecione o nível</option>
-          <option value="facil">Fácil</option>
-          <option value="medio">Médio</option>
-          <option value="dificil">Difícil</option>
-        </select>
-      </div>
-      <div class="btn-group">
-        <button id="btn-start-quiz" class="btn-primary" disabled>Iniciar Quiz</button>
-        <button id="btn-back-welcome" class="btn-secondary">Voltar</button>
-      </div>
-    </section>
+        <div id="game-screen" class="hidden">
+            <div class="question-box">
+                <p id="question-text" class="question-text"></p>
+                <div id="options-container" class="options-container">
+                    </div>
+            </div>
+            <div class="score-box">
+                Pontuação: <span id="score">0</span>
+            </div>
+        </div>
 
-    <!-- Tela 3: Quiz -->
-    <section id="quiz-screen" class="screen">
-      <header>
-        <h2 id="quiz-title">Quiz</h2>
-        <div id="score-display">Pontuação: 0</div>
-      </header>
-      <article id="question-container">
-        <h3 id="question-text">Pergunta</h3>
-        <div id="answers-container" class="answers"></div>
-      </article>
-      <footer>
-        <button id="next-btn" class="btn-secondary" disabled>Próxima</button>
-      </footer>
-    </section>
+        <div id="end-screen" class="hidden">
+            <h2>Fim do Jogo!</h2>
+            <p>Sua pontuação final é: <span id="final-score">0</span></p>
+            <button class="difficulty-button easy" onclick="startGame('easy')">Jogar Novamente (Fácil)</button>
+            <button class="difficulty-button medium" onclick="startGame('medium')">Jogar Novamente (Médio)</button>
+            <button class="difficulty-button hard" onclick="startGame('hard')">Jogar Novamente (Difícil)</button>
+        </div>
+    </div>
 
-    <!-- Tela 4: Resultado + Ranking -->
-    <section id="result-screen" class="screen">
-      <h2>Parabéns!</h2>
-      <p id="final-score-text"></p>
-      <h3>Ranking - <span id="ranking-title"></span></h3>
-      <ol id="ranking-list" class="ranking-list"></ol>
-      <button id="restart-btn" class="btn-primary">Jogar Novamente</button>
-    </section>
-
-  </main>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
