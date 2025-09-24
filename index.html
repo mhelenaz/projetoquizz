@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Divertido</title>
+    <title>Quiz de Matérias Escolares</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="quiz-container">
-        <h1>Quiz Divertido</h1>
+        <h1>Quiz de Matérias Escolares</h1>
         
         <div id="welcome-screen">
             <p>Bem-vindo ao Quiz Divertido!</p>
-            <p>Teste seus conhecimentos em três níveis de dificuldade.</p>
-            <button class="start-button" onclick="showDifficultyScreen()">Começar</button>
+            <p>Teste seus conhecimentos em diferentes temas.</p>
+            <button class="start-button" onclick="showThemeScreen()">Começar</button>
         </div>
 
-        <div id="difficulty-screen" class="hidden">
-            <p>Escolha um nível para começar:</p>
-            <button class="difficulty-button easy" onclick="startGame('easy')">Nível Fácil</button>
-            <button class="difficulty-button medium" onclick="startGame('medium')">Nível Médio</button>
-            <button class="difficulty-button hard" onclick="startGame('hard')">Nível Difícil</button>
+        <div id="theme-screen" class="hidden">
+            <p>Escolha um tema:</p>
+            <button class="theme-button portugues" onclick="startGame('portugues')">Português</button>
+            <button class="theme-button matematica" onclick="startGame('matematica')">Matemática</button>
+            <button class="theme-button historia" onclick="startGame('historia')">História</button>
+            <button class="theme-button ciencias" onclick="startGame('ciencias')">Ciências</button>
         </div>
 
         <div id="game-screen" class="hidden">
@@ -37,9 +38,7 @@
         <div id="end-screen" class="hidden">
             <h2>Fim do Jogo!</h2>
             <p>Sua pontuação final é: <span id="final-score">0</span></p>
-            <button class="difficulty-button easy" onclick="startGame('easy')">Jogar Novamente (Fácil)</button>
-            <button class="difficulty-button medium" onclick="startGame('medium')">Jogar Novamente (Médio)</button>
-            <button class="difficulty-button hard" onclick="startGame('hard')">Jogar Novamente (Difícil)</button>
+            <button class="theme-button" id="play-again-button">Jogar Novamente</button>
         </div>
     </div>
 
