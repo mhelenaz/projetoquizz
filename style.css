@@ -1,4 +1,4 @@
-/* Mesma base do CSS anterior */
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
@@ -94,7 +94,6 @@ select:hover, select:focus {
 }
 
 .btn-primary {
-  background: #ff416c;
   background: linear-gradient(90deg, #ff4b2b, #ff416c);
   color: #fff;
   box-shadow: 0 4px 15px rgba(255,65,108,0.5);
@@ -117,6 +116,13 @@ select:hover, select:focus {
   background: #888;
   cursor: not-allowed;
   box-shadow: none;
+}
+
+.btn-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 15px;
 }
 
 /* Quiz */
