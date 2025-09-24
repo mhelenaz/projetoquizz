@@ -234,9 +234,9 @@ function showDifficultyScreen(theme) {
 
 // Função para começar o jogo com o nível escolhido
 function startGame(level) {
-    // Pega a lista completa de perguntas do tema e nível, e depois seleciona 6 aleatoriamente
+    // Pega a lista completa de perguntas do tema e nível, e depois seleciona 8 aleatoriamente
     const fullQuestionList = questions[selectedTheme][level];
-    questionsList = getRandomQuestions(fullQuestionList, 6);
+    questionsList = getRandomQuestions(fullQuestionList, 8);
     
     currentQuestionIndex = 0;
     score = 0;
